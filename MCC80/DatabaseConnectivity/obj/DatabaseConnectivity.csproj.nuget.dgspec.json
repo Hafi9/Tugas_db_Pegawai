@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repos\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj": {}
+    "D:\\Git\\Tugas_db_Pegawai\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj": {}
   },
   "projects": {
-    "D:\\Repos\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj": {
+    "D:\\Git\\Tugas_db_Pegawai\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repos\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
+        "projectUniqueName": "D:\\Git\\Tugas_db_Pegawai\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
         "projectName": "DatabaseConnectivity",
-        "projectPath": "D:\\Repos\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
+        "projectPath": "D:\\Git\\Tugas_db_Pegawai\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Repos\\MCC80\\DatabaseConnectivity\\obj\\",
+        "outputPath": "D:\\Git\\Tugas_db_Pegawai\\MCC80\\DatabaseConnectivity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

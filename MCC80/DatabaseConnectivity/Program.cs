@@ -93,21 +93,21 @@ public class Program
             {
                 //Console.Write("Masukkan nama country yang akan dibuat: ");
                 //string name = Console.ReadLine();
-                //InsertRegions(name);
+                //InsertCountry(name);
             }
             else if (input == "3")
             {
-                //Console.Write("Masukkan ID country yang akan diupdate: ");
-                //int id = int.Parse(Console.ReadLine());
-                //Console.Write("Masukkan nama region baru: ");
-                //string name = Console.ReadLine();
-                //UpdateRegions(name, id);
+                Console.Write("Masukkan ID country yang akan diupdate: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan nama region baru: ");
+                string name = Console.ReadLine();
+                UpdateRegions(name, id);
             }
             else if (input == "4")
             {
-                //Console.Write("Masukkan ID counrty yang akan dihapus: ");
-                //int id = int.Parse(Console.ReadLine());
-                //DeleteRegions(id);
+                Console.Write("Masukkan ID counrty yang akan dihapus: ");
+                int id = int.Parse(Console.ReadLine());
+                DeleteRegions(id);
             }
             else if (input == "5")
             {
@@ -127,7 +127,7 @@ public class Program
     {
         while (true)
         {
-            Console.WriteLine
+            Console.Clear();
             Console.WriteLine("Menu Region:");
             Console.WriteLine("1. Tampilkan Region");
             Console.WriteLine("2. Create Region");
@@ -291,6 +291,50 @@ public class Program
     }
 
     // UPDATE
+    public static void UpdateCounrty(string name, string country_id)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "UPDATE countries SET name = @name WHERE country_id = @country_id";
+
+        _connection.Open();
+        SqlTransaction transaction = _connection.BeginTransaction();
+        sqlCommand.Transaction = transaction;
+        try
+        {
+            SqlParameter pName = new SqlParameter();
+            pName.ParameterName = "@name";
+            pName.SqlDbType = System.Data.SqlDbType.VarChar;
+            pName.Value = name;
+            sqlCommand.Parameters.Add(pName);
+
+            SqlParameter pCounrtyId = new SqlParameter();
+            pCounrtyId.ParameterName = "@country_id";
+            pCounrtyId.SqlDbType = System.Data.SqlDbType.Int;
+            pCounrtyId.Value = country_id;
+            sqlCommand.Parameters.Add(pCounrtyId);
+
+            int result = sqlCommand.ExecuteNonQuery();
+            if (result > 0)
+            {
+                Console.WriteLine("Update Success");
+            }
+            else
+            {
+                Console.WriteLine("Update Fail");
+            }
+            transaction.Commit();
+            _connection.Close();
+        }
+        catch
+        {
+            transaction.Rollback();
+            Console.WriteLine("Error connecting to the database");
+        }
+    }
+
     public static void UpdateRegions(string name, int region_id)
     {
         _connection = new SqlConnection(_connectionString);
@@ -336,6 +380,44 @@ public class Program
     }
 
     //DELETE
+    public static void DeleteCountries(string country_id)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "DELETE FROM countries WHERE country_id = @country_id";
+
+        _connection.Open();
+        SqlTransaction transaction = _connection.BeginTransaction();
+        sqlCommand.Transaction = transaction;
+        try
+        {
+            SqlParameter pCountryId = new SqlParameter();
+            pCountryId.ParameterName = "@country_id";
+            pCountryId.SqlDbType = System.Data.SqlDbType.Int;
+            pCountryId.Value = country_id;
+            sqlCommand.Parameters.Add(pCountryId);
+
+            int result = sqlCommand.ExecuteNonQuery();
+            if (result > 0)
+            {
+                Console.WriteLine("Delete Success");
+            }
+            else
+            {
+                Console.WriteLine("Delete Fail");
+            }
+            transaction.Commit();
+            _connection.Close();
+        }
+        catch
+        {
+            transaction.Rollback();
+            Console.WriteLine("Error connecting to the database");
+        }
+    }
+
     public static void DeleteRegions(int region_id)
     {
         _connection = new SqlConnection(_connectionString);
@@ -375,6 +457,42 @@ public class Program
     }
 
     //Get by ID Regions
+    public static void GetCountryById(string country_id)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM countries WHERE country_id = @country_id";
+        sqlCommand.Parameters.AddWithValue("@country_id", country_id);
+
+        try
+        {
+            _connection.Open();
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("Id: " + reader.GetString(0));
+                    Console.WriteLine("Name: " + reader.GetString(1));
+                    Console.WriteLine("ID Region: " + reader.GetInt32(2));
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Region Found");
+            }
+            reader.Close();
+            _connection.Close();
+        }
+        catch
+        {
+            Console.WriteLine("Error connecting to the database");
+        }
+
+    }
+
     public static void GetRegionById(int region_id)
     {
         _connection = new SqlConnection(_connectionString);
