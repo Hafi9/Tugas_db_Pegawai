@@ -121,9 +121,9 @@ public class Program
                 Console.Write("Masukkan Hire Date (yyyy-mm-dd): ");
                 DateTime hireDate = DateTime.Parse(Console.ReadLine());
                 Console.Write("Masukkan Salary: ");
-                decimal salary = decimal.Parse(Console.ReadLine());
+                int salary = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan Commission Percentage: ");
-                decimal commissionPct = decimal.Parse(Console.ReadLine());
+                decimal commision_pct = decimal.Parse(Console.ReadLine());
                 Console.Write("Masukkan Manager ID: ");
                 int managerId = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan Job ID: ");
@@ -131,7 +131,7 @@ public class Program
                 Console.Write("Masukkan Department ID: ");
                 int departmentId = int.Parse(Console.ReadLine());
 
-                InsertEmployee(employeeId, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
+                InsertEmployee(employeeId, firstName, lastName, email, phoneNumber, hireDate, salary, commision_pct, managerId, jobId, departmentId);
             }
             else if (input == "4")
             {
@@ -149,9 +149,9 @@ public class Program
                 Console.Write("Masukkan Hire Date baru (yyyy-mm-dd): ");
                 DateTime hireDate = DateTime.Parse(Console.ReadLine());
                 Console.Write("Masukkan Salary baru: ");
-                decimal salary = decimal.Parse(Console.ReadLine());
+                int salary = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan Commission Percentage baru: ");
-                decimal commissionPct = decimal.Parse(Console.ReadLine());
+                decimal commision_pct = decimal.Parse(Console.ReadLine());
                 Console.Write("Masukkan Manager ID baru: ");
                 int managerId = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan Job ID baru: ");
@@ -159,7 +159,7 @@ public class Program
                 Console.Write("Masukkan Department ID baru: ");
                 int departmentId = int.Parse(Console.ReadLine());
 
-                UpdateEmployee(employeeId, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
+                UpdateEmployee(employeeId, firstName, lastName, email, phoneNumber, hireDate, salary, commision_pct, managerId, jobId, departmentId);
             }
             else if (input == "5")
             {
@@ -216,9 +216,9 @@ public class Program
                 Console.Write("Masukkan Title: ");
                 string title = Console.ReadLine();
                 Console.Write("Masukkan Min Salary: ");
-                decimal minSalary = decimal.Parse(Console.ReadLine());
+                int minSalary = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan Max Salary: ");
-                decimal maxSalary = decimal.Parse(Console.ReadLine());
+                int maxSalary = int.Parse(Console.ReadLine());
                 InsertJob(jobId, title, minSalary, maxSalary);
             }
             else if (input == "4")
@@ -229,9 +229,9 @@ public class Program
                 Console.Write("Masukkan Title baru: ");
                 string title = Console.ReadLine();
                 Console.Write("Masukkan Min Salary baru: ");
-                decimal minSalary = decimal.Parse(Console.ReadLine());
+                int minSalary = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan Max Salary baru: ");
-                decimal maxSalary = decimal.Parse(Console.ReadLine());
+                int maxSalary = int.Parse(Console.ReadLine());
                 UpdateJob(jobId, title, minSalary, maxSalary);
             }
             else if (input == "5")
@@ -640,7 +640,7 @@ public class Program
                     Console.WriteLine("Email: " + reader.GetString(3));
                     Console.WriteLine("Phone Number: " + reader.GetString(4));
                     Console.WriteLine("Hire Date: " + reader.GetDateTime(5).ToString("yyyy-MM-dd"));
-                    Console.WriteLine("Salary: " + reader.GetDecimal(6));
+                    Console.WriteLine("Salary: " + reader.GetInt32(6));
                     Console.WriteLine("Commission Pct: " + reader.GetDecimal(7));
                     Console.WriteLine("Manager ID: " + reader.GetInt32(8));
                     Console.WriteLine("Job ID: " + reader.GetString(9));
@@ -679,8 +679,8 @@ public class Program
                 {
                     Console.WriteLine("Job ID: " + reader.GetString(0));
                     Console.WriteLine("Title: " + reader.GetString(1));
-                    Console.WriteLine("Min Salary: " + reader.GetDecimal(2));
-                    Console.WriteLine("Max Salary: " + reader.GetDecimal(3));
+                    Console.WriteLine("Min Salary: " + reader.GetInt32(2));
+                    Console.WriteLine("Max Salary: " + reader.GetInt32(3));
                     Console.WriteLine();
                 }
             }
@@ -713,12 +713,11 @@ public class Program
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("History ID: " + reader.GetInt32(0));
-                    Console.WriteLine("Start Date: " + reader.GetDateTime(1).ToString("yyyy-MM-dd"));
-                    Console.WriteLine("Employee ID: " + reader.GetInt32(2));
-                    Console.WriteLine("End Date: " + reader.GetDateTime(3).ToString("yyyy-MM-dd"));
-                    Console.WriteLine("Department ID: " + reader.GetInt32(4));
-                    Console.WriteLine("Job ID: " + reader.GetString(5));
+                    Console.WriteLine("Start Date: " + reader.GetDateTime(0).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Employee ID: " + reader.GetInt32(1));
+                    Console.WriteLine("End Date: " + reader.GetDateTime(2).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Department ID: " + reader.GetInt32(3));
+                    Console.WriteLine("Job ID: " + reader.GetString(4));
                     Console.WriteLine();
                 }
             }
@@ -894,13 +893,13 @@ public class Program
     }
 
     //INSERT
-    public static void InsertEmployee(int employeeId, string firstName, string lastName, string email, string phoneNumber, DateTime hireDate, decimal salary, decimal commissionPct, int managerId, string jobId, int departmentId)
+    public static void InsertEmployee(int employeeId, string firstName, string lastName, string email, string phoneNumber, DateTime hireDate, int salary, decimal commision_pct, int managerId, string jobId, int departmentId)
     {
         _connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
         sqlCommand.Connection = _connection;
-        sqlCommand.CommandText = "INSERT INTO Employees (employee_id, first_name, last_name, email, phone_number, hire_date, salary, commission_pct, manager_id, job_id, department_id) VALUES (@employeeId, @firstName, @lastName, @email, @phoneNumber, @hireDate, @salary, @commissionPct, @managerId, @jobId, @departmentId)";
+        sqlCommand.CommandText = "INSERT INTO Employees (employee_id, first_name, last_name, email, phone_number, hire_date, salary, commision_pct, manager_id, job_id, department_id) VALUES (@employeeId, @firstName, @lastName, @email, @phoneNumber, @hireDate, @salary, @commision_pct, @managerId, @jobId, @departmentId)";
         sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
         sqlCommand.Parameters.AddWithValue("@firstName", firstName);
         sqlCommand.Parameters.AddWithValue("@lastName", lastName);
@@ -908,7 +907,7 @@ public class Program
         sqlCommand.Parameters.AddWithValue("@phoneNumber", phoneNumber);
         sqlCommand.Parameters.AddWithValue("@hireDate", hireDate);
         sqlCommand.Parameters.AddWithValue("@salary", salary);
-        sqlCommand.Parameters.AddWithValue("@commissionPct", commissionPct);
+        sqlCommand.Parameters.AddWithValue("@commision_pct", commision_pct);
         sqlCommand.Parameters.AddWithValue("@managerId", managerId);
         sqlCommand.Parameters.AddWithValue("@jobId", jobId);
         sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
@@ -1151,13 +1150,13 @@ public class Program
     }
 
     // UPDATE
-    public static void UpdateEmployee(int employeeId, string firstName, string lastName, string email, string phoneNumber, DateTime hireDate, decimal salary, decimal commissionPct, int managerId, string jobId, int departmentId)
+    public static void UpdateEmployee(int employeeId, string firstName, string lastName, string email, string phoneNumber, DateTime hireDate, int salary, decimal commision_pct, int managerId, string jobId, int departmentId)
     {
         _connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
         sqlCommand.Connection = _connection;
-        sqlCommand.CommandText = "UPDATE Employees SET first_name = @firstName, last_name = @lastName, email = @email, phone_number = @phoneNumber, hire_date = @hireDate, salary = @salary, commission_pct = @commissionPct, manager_id = @managerId, job_id = @jobId, department_id = @departmentId WHERE employee_id = @employeeId";
+        sqlCommand.CommandText = "UPDATE Employees SET first_name = @firstName, last_name = @lastName, email = @email, phone_number = @phoneNumber, hire_date = @hireDate, salary = @salary, commision_pct = @commision_pct, manager_id = @managerId, job_id = @jobId, department_id = @departmentId WHERE employee_id = @employeeId";
         sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
         sqlCommand.Parameters.AddWithValue("@firstName", firstName);
         sqlCommand.Parameters.AddWithValue("@lastName", lastName);
@@ -1165,7 +1164,7 @@ public class Program
         sqlCommand.Parameters.AddWithValue("@phoneNumber", phoneNumber);
         sqlCommand.Parameters.AddWithValue("@hireDate", hireDate);
         sqlCommand.Parameters.AddWithValue("@salary", salary);
-        sqlCommand.Parameters.AddWithValue("@commissionPct", commissionPct);
+        sqlCommand.Parameters.AddWithValue("@commision_pct", commision_pct);
         sqlCommand.Parameters.AddWithValue("@managerId", managerId);
         sqlCommand.Parameters.AddWithValue("@jobId", jobId);
         sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
@@ -1190,7 +1189,7 @@ public class Program
             Console.WriteLine("Error connecting to the database: " + ex.Message);
         }
     }
-    public static void UpdateJob(string jobId, string title, decimal minSalary, decimal maxSalary)
+    public static void UpdateJob(string jobId, string title, int minSalary, int maxSalary)
     {
         _connection = new SqlConnection(_connectionString);
 
@@ -1660,7 +1659,7 @@ public class Program
                     Console.WriteLine("Email: " + reader.GetString(3));
                     Console.WriteLine("Phone Number: " + reader.GetString(4));
                     Console.WriteLine("Hire Date: " + reader.GetDateTime(5).ToString("yyyy-MM-dd"));
-                    Console.WriteLine("Salary: " + reader.GetDecimal(6));
+                    Console.WriteLine("Salary: " + reader.GetInt32(6));
                     Console.WriteLine("Commission Pct: " + reader.GetDecimal(7));
                     Console.WriteLine("Manager ID: " + reader.GetInt32(8));
                     Console.WriteLine("Job ID: " + reader.GetString(9));
@@ -1700,8 +1699,8 @@ public class Program
                 {
                     Console.WriteLine("Job ID: " + reader.GetString(0));
                     Console.WriteLine("Title: " + reader.GetString(1));
-                    Console.WriteLine("Min Salary: " + reader.GetDecimal(2));
-                    Console.WriteLine("Max Salary: " + reader.GetDecimal(3));
+                    Console.WriteLine("Min Salary: " + reader.GetInt32(2));
+                    Console.WriteLine("Max Salary: " + reader.GetInt32(3));
                     Console.WriteLine();
                 }
             }
@@ -1735,12 +1734,11 @@ public class Program
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("History ID: " + reader.GetInt32(0));
-                    Console.WriteLine("Start Date: " + reader.GetDateTime(1).ToString("yyyy-MM-dd"));
-                    Console.WriteLine("Employee ID: " + reader.GetInt32(2));
-                    Console.WriteLine("End Date: " + reader.GetDateTime(3).ToString("yyyy-MM-dd"));
-                    Console.WriteLine("Department ID: " + reader.GetInt32(4));
-                    Console.WriteLine("Job ID: " + reader.GetString(5));
+                    Console.WriteLine("Start Date: " + reader.GetDateTime(0).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Employee ID: " + reader.GetInt32(1));
+                    Console.WriteLine("End Date: " + reader.GetDateTime(2).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Department ID: " + reader.GetInt32(3));
+                    Console.WriteLine("Job ID: " + reader.GetString(4));
                     Console.WriteLine();
                 }
             }
@@ -1773,10 +1771,12 @@ public class Program
             SqlDataReader reader = sqlCommand.ExecuteReader();
             if (reader.Read())
             {
+                int locationId = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+                int managerId = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
                 Console.WriteLine("Department ID: " + reader.GetInt32(0));
                 Console.WriteLine("Name: " + reader.GetString(1));
-                Console.WriteLine("Location ID: " + reader.GetInt32(2));
-                Console.WriteLine("Manager ID: " + reader.GetInt32(3));
+                Console.WriteLine("Location ID: " + locationId);
+                Console.WriteLine("Manager ID: " + managerId);
             }
             else
             {
@@ -1807,12 +1807,19 @@ public class Program
             SqlDataReader reader = sqlCommand.ExecuteReader();
             if (reader.Read())
             {
-                Console.WriteLine("Location ID: " + reader.GetInt32(0));
-                Console.WriteLine("Street Address: " + reader.GetString(1));
-                Console.WriteLine("Postal Code: " + reader.GetString(2));
-                Console.WriteLine("City: " + reader.GetString(3));
-                Console.WriteLine("State Province: " + reader.GetString(4));
-                Console.WriteLine("Country ID: " + reader.GetInt32(5));
+                int id = reader.GetInt32(0);
+                string streetAddress = reader.IsDBNull(1) ? "N/A" : reader.GetString(1);
+                string postalCode = reader.IsDBNull(2) ? "N/A" : reader.GetString(2);
+                string city = reader.IsDBNull(3) ? "N/A" : reader.GetString(3);
+                string stateProvince = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
+                string countryId = reader.IsDBNull(5) ? "N/A" : reader.GetString(5);
+
+                Console.WriteLine("Id: " + id);
+                Console.WriteLine("Street Address: " + streetAddress);
+                Console.WriteLine("Postal Code: " + postalCode);
+                Console.WriteLine("City: " + city);
+                Console.WriteLine("State Province: " + stateProvince);
+                Console.WriteLine("Id Country: " + countryId);
             }
             else
             {
