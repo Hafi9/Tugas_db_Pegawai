@@ -34,7 +34,8 @@ public class Program
 
             if (input == "1")
             {
-               //employees
+                Console.Clear();
+                EmployeesMenu();
             }
             else if (input == "2")
             {
@@ -43,11 +44,13 @@ public class Program
             }
             else if (input == "3")
             {
-                //histories
+                Console.Clear();
+                HistoriesMenu();
             }
             else if (input == "4")
             {
-                //Jobs
+                Console.Clear();
+                JobsMenu();
             }
             else if (input == "5")
             {
@@ -73,6 +76,182 @@ public class Program
                 Console.WriteLine("Input tidak valid. Silakan coba lagi.");
                 Console.WriteLine();
             }
+        }
+    }
+    public static void EmployeesMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("Menu Employees:");
+            Console.WriteLine("1. Tampilkan Semua Data Employees");
+            Console.WriteLine("2. Tampilkan Data Employee berdasarkan Employee ID");
+            Console.WriteLine("3. Tambah Data Employee");
+            Console.WriteLine("4. Update Data Employee");
+            Console.WriteLine("5. Hapus Data Employee");
+            Console.WriteLine("6. Kembali ke Menu Utama");
+
+            Console.Write("Pilih menu (1-6): ");
+            string input = Console.ReadLine();
+
+            if (input == "1")
+            {
+                Console.Clear();
+                GetEmployees();
+            }
+            else if (input == "2")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Employee ID: ");
+                int employeeId = int.Parse(Console.ReadLine());
+                GetEmployeeById(employeeId);
+            }
+            else if (input == "3")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Employee ID: ");
+                int employeeId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan First Name: ");
+                string firstName = Console.ReadLine();
+                Console.Write("Masukkan Last Name: ");
+                string lastName = Console.ReadLine();
+                Console.Write("Masukkan Email: ");
+                string email = Console.ReadLine();
+                Console.Write("Masukkan Phone Number: ");
+                string phoneNumber = Console.ReadLine();
+                Console.Write("Masukkan Hire Date (yyyy-mm-dd): ");
+                DateTime hireDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Masukkan Salary: ");
+                decimal salary = decimal.Parse(Console.ReadLine());
+                Console.Write("Masukkan Commission Percentage: ");
+                decimal commissionPct = decimal.Parse(Console.ReadLine());
+                Console.Write("Masukkan Manager ID: ");
+                int managerId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan Job ID: ");
+                string jobId = Console.ReadLine();
+                Console.Write("Masukkan Department ID: ");
+                int departmentId = int.Parse(Console.ReadLine());
+
+                InsertEmployee(employeeId, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
+            }
+            else if (input == "4")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Employee ID yang akan diupdate: ");
+                int employeeId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan First Name baru: ");
+                string firstName = Console.ReadLine();
+                Console.Write("Masukkan Last Name baru: ");
+                string lastName = Console.ReadLine();
+                Console.Write("Masukkan Email baru: ");
+                string email = Console.ReadLine();
+                Console.Write("Masukkan Phone Number baru: ");
+                string phoneNumber = Console.ReadLine();
+                Console.Write("Masukkan Hire Date baru (yyyy-mm-dd): ");
+                DateTime hireDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Masukkan Salary baru: ");
+                decimal salary = decimal.Parse(Console.ReadLine());
+                Console.Write("Masukkan Commission Percentage baru: ");
+                decimal commissionPct = decimal.Parse(Console.ReadLine());
+                Console.Write("Masukkan Manager ID baru: ");
+                int managerId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan Job ID baru: ");
+                string jobId = Console.ReadLine();
+                Console.Write("Masukkan Department ID baru: ");
+                int departmentId = int.Parse(Console.ReadLine());
+
+                UpdateEmployee(employeeId, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
+            }
+            else if (input == "5")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Employee ID yang akan dihapus: ");
+                int employeeId = int.Parse(Console.ReadLine());
+                DeleteEmployee(employeeId);
+            }
+            else if (input == "6")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Input tidak valid. Silakan coba lagi.");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+        }
+    }
+    public static void JobsMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("Menu Jobs:");
+            Console.WriteLine("1. Tampilkan Semua Jobs");
+            Console.WriteLine("2. Tampilkan Job berdasarkan Job ID");
+            Console.WriteLine("3. Create Job");
+            Console.WriteLine("4. Update Job");
+            Console.WriteLine("5. Delete Job");
+            Console.WriteLine("6. Kembali ke Menu Utama");
+
+            Console.Write("Pilih menu (1-6): ");
+            string input = Console.ReadLine();
+
+            if (input == "1")
+            {
+                Console.Clear();
+                GetJobs();
+            }
+            else if (input == "2")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Job ID: ");
+                string jobId = Console.ReadLine();
+                GetJobByJobId(jobId);
+            }
+            else if (input == "3")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Job ID: ");
+                string jobId = Console.ReadLine();
+                Console.Write("Masukkan Title: ");
+                string title = Console.ReadLine();
+                Console.Write("Masukkan Min Salary: ");
+                decimal minSalary = decimal.Parse(Console.ReadLine());
+                Console.Write("Masukkan Max Salary: ");
+                decimal maxSalary = decimal.Parse(Console.ReadLine());
+                InsertJob(jobId, title, minSalary, maxSalary);
+            }
+            else if (input == "4")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Job ID yang akan diupdate: ");
+                string jobId = Console.ReadLine();
+                Console.Write("Masukkan Title baru: ");
+                string title = Console.ReadLine();
+                Console.Write("Masukkan Min Salary baru: ");
+                decimal minSalary = decimal.Parse(Console.ReadLine());
+                Console.Write("Masukkan Max Salary baru: ");
+                decimal maxSalary = decimal.Parse(Console.ReadLine());
+                UpdateJob(jobId, title, minSalary, maxSalary);
+            }
+            else if (input == "5")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Job ID yang akan dihapus: ");
+                string jobId = Console.ReadLine();
+                DeleteJob(jobId);
+            }
+            else if (input == "6")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Input tidak valid. Silakan coba lagi.");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
         }
     }
     public static void HistoriesMenu()
@@ -439,6 +618,85 @@ public class Program
     }
 
     //Get all data
+    public static void GetEmployees()
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Employees";
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("Employee ID: " + reader.GetInt32(0));
+                    Console.WriteLine("First Name: " + reader.GetString(1));
+                    Console.WriteLine("Last Name: " + reader.GetString(2));
+                    Console.WriteLine("Email: " + reader.GetString(3));
+                    Console.WriteLine("Phone Number: " + reader.GetString(4));
+                    Console.WriteLine("Hire Date: " + reader.GetDateTime(5).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Salary: " + reader.GetDecimal(6));
+                    Console.WriteLine("Commission Pct: " + reader.GetDecimal(7));
+                    Console.WriteLine("Manager ID: " + reader.GetInt32(8));
+                    Console.WriteLine("Job ID: " + reader.GetString(9));
+                    Console.WriteLine("Department ID: " + reader.GetInt32(10));
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Employees Found");
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void GetJobs()
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Jobs";
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("Job ID: " + reader.GetString(0));
+                    Console.WriteLine("Title: " + reader.GetString(1));
+                    Console.WriteLine("Min Salary: " + reader.GetDecimal(2));
+                    Console.WriteLine("Max Salary: " + reader.GetDecimal(3));
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Jobs Found");
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void GetHistories()
     {
         _connection = new SqlConnection(_connectionString);
@@ -636,6 +894,77 @@ public class Program
     }
 
     //INSERT
+    public static void InsertEmployee(int employeeId, string firstName, string lastName, string email, string phoneNumber, DateTime hireDate, decimal salary, decimal commissionPct, int managerId, string jobId, int departmentId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "INSERT INTO Employees (employee_id, first_name, last_name, email, phone_number, hire_date, salary, commission_pct, manager_id, job_id, department_id) VALUES (@employeeId, @firstName, @lastName, @email, @phoneNumber, @hireDate, @salary, @commissionPct, @managerId, @jobId, @departmentId)";
+        sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
+        sqlCommand.Parameters.AddWithValue("@firstName", firstName);
+        sqlCommand.Parameters.AddWithValue("@lastName", lastName);
+        sqlCommand.Parameters.AddWithValue("@email", email);
+        sqlCommand.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+        sqlCommand.Parameters.AddWithValue("@hireDate", hireDate);
+        sqlCommand.Parameters.AddWithValue("@salary", salary);
+        sqlCommand.Parameters.AddWithValue("@commissionPct", commissionPct);
+        sqlCommand.Parameters.AddWithValue("@managerId", managerId);
+        sqlCommand.Parameters.AddWithValue("@jobId", jobId);
+        sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Insert Success");
+            }
+            else
+            {
+                Console.WriteLine("Insert Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void InsertJob(string jobId, string title, decimal minSalary, decimal maxSalary)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "INSERT INTO Jobs (job_id, title, min_salary, max_salary) VALUES (@jobId, @title, @minSalary, @maxSalary)";
+        sqlCommand.Parameters.AddWithValue("@jobId", jobId);
+        sqlCommand.Parameters.AddWithValue("@title", title);
+        sqlCommand.Parameters.AddWithValue("@minSalary", minSalary);
+        sqlCommand.Parameters.AddWithValue("@maxSalary", maxSalary);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Insert Success");
+            }
+            else
+            {
+                Console.WriteLine("Insert Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void InsertHistory(DateTime startDate, int employeeId, DateTime endDate, int departmentId, string jobId)
     {
         _connection = new SqlConnection(_connectionString);
@@ -822,6 +1151,77 @@ public class Program
     }
 
     // UPDATE
+    public static void UpdateEmployee(int employeeId, string firstName, string lastName, string email, string phoneNumber, DateTime hireDate, decimal salary, decimal commissionPct, int managerId, string jobId, int departmentId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "UPDATE Employees SET first_name = @firstName, last_name = @lastName, email = @email, phone_number = @phoneNumber, hire_date = @hireDate, salary = @salary, commission_pct = @commissionPct, manager_id = @managerId, job_id = @jobId, department_id = @departmentId WHERE employee_id = @employeeId";
+        sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
+        sqlCommand.Parameters.AddWithValue("@firstName", firstName);
+        sqlCommand.Parameters.AddWithValue("@lastName", lastName);
+        sqlCommand.Parameters.AddWithValue("@email", email);
+        sqlCommand.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+        sqlCommand.Parameters.AddWithValue("@hireDate", hireDate);
+        sqlCommand.Parameters.AddWithValue("@salary", salary);
+        sqlCommand.Parameters.AddWithValue("@commissionPct", commissionPct);
+        sqlCommand.Parameters.AddWithValue("@managerId", managerId);
+        sqlCommand.Parameters.AddWithValue("@jobId", jobId);
+        sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Update Success");
+            }
+            else
+            {
+                Console.WriteLine("Update Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void UpdateJob(string jobId, string title, decimal minSalary, decimal maxSalary)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "UPDATE Jobs SET title = @title, min_salary = @minSalary, max_salary = @maxSalary WHERE job_id = @jobId";
+        sqlCommand.Parameters.AddWithValue("@title", title);
+        sqlCommand.Parameters.AddWithValue("@minSalary", minSalary);
+        sqlCommand.Parameters.AddWithValue("@maxSalary", maxSalary);
+        sqlCommand.Parameters.AddWithValue("@jobId", jobId);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Update Success");
+            }
+            else
+            {
+                Console.WriteLine("Update Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void UpdateHistory(int employeeId, DateTime startDate, int newEmployeeId, DateTime endDate, int departmentId, string jobId)
     {
         _connection = new SqlConnection(_connectionString);
@@ -1013,6 +1413,64 @@ public class Program
     }
 
     //DELETE
+    public static void DeleteEmployee(int employeeId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "DELETE FROM Employees WHERE employee_id = @employeeId";
+        sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Delete Success");
+            }
+            else
+            {
+                Console.WriteLine("Delete Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void DeleteJob(string jobId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "DELETE FROM Jobs WHERE job_id = @jobId";
+        sqlCommand.Parameters.AddWithValue("@jobId", jobId);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Delete Success");
+            }
+            else
+            {
+                Console.WriteLine("Delete Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void DeleteHistory(int employeeId)
     {
         _connection = new SqlConnection(_connectionString);
@@ -1178,7 +1636,88 @@ public class Program
         }
     }
 
-    //Get by ID Regions
+    //Get by ID
+    public static void GetEmployeeById(int employeeId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Employees WHERE employee_id = @employeeId";
+        sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("Employee ID: " + reader.GetInt32(0));
+                    Console.WriteLine("First Name: " + reader.GetString(1));
+                    Console.WriteLine("Last Name: " + reader.GetString(2));
+                    Console.WriteLine("Email: " + reader.GetString(3));
+                    Console.WriteLine("Phone Number: " + reader.GetString(4));
+                    Console.WriteLine("Hire Date: " + reader.GetDateTime(5).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Salary: " + reader.GetDecimal(6));
+                    Console.WriteLine("Commission Pct: " + reader.GetDecimal(7));
+                    Console.WriteLine("Manager ID: " + reader.GetInt32(8));
+                    Console.WriteLine("Job ID: " + reader.GetString(9));
+                    Console.WriteLine("Department ID: " + reader.GetInt32(10));
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Employee Found for Employee ID: " + employeeId);
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void GetJobByJobId(string jobId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Jobs WHERE job_id = @jobId";
+        sqlCommand.Parameters.AddWithValue("@jobId", jobId);
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("Job ID: " + reader.GetString(0));
+                    Console.WriteLine("Title: " + reader.GetString(1));
+                    Console.WriteLine("Min Salary: " + reader.GetDecimal(2));
+                    Console.WriteLine("Max Salary: " + reader.GetDecimal(3));
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Job Found for Job ID: " + jobId);
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void GetHistoryByEmployeeId(int employeeId)
     {
         _connection = new SqlConnection(_connectionString);
