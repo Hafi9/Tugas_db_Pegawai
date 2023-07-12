@@ -18,6 +18,7 @@ public class Program
     {
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Menu Utama:");
             Console.WriteLine("1. Employees");
             Console.WriteLine("2. Departments");
@@ -53,10 +54,12 @@ public class Program
             }
             else if (input == "6")
             {
+                Console.Clear();
                 CountriesMenu();
             }
             else if (input == "7")
             {
+                Console.Clear();
                 RegionMenu();
             }
             else if (input == "8")
@@ -75,7 +78,7 @@ public class Program
     {
         while (true)
         {
-            Console.WriteLine("Menu Region:");
+            Console.WriteLine("Menu Countries:");
             Console.WriteLine("1. Tampilkan Countries");
             Console.WriteLine("2. Create Countries");
             Console.WriteLine("3. Update Countries");
@@ -87,6 +90,7 @@ public class Program
 
             if (input == "1")
             {
+                Console.Clear();
                 GetCountries();
             }
             else if (input == "2")
@@ -97,6 +101,7 @@ public class Program
             }
             else if (input == "3")
             {
+                Console.Clear();
                 Console.Write("Masukkan ID country yang akan diupdate: ");
                 int id = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan nama region baru: ");
@@ -105,6 +110,7 @@ public class Program
             }
             else if (input == "4")
             {
+                Console.Clear();
                 Console.Write("Masukkan ID counrty yang akan dihapus: ");
                 int id = int.Parse(Console.ReadLine());
                 DeleteRegions(id);
@@ -127,15 +133,15 @@ public class Program
     {
         while (true)
         {
-            Console.Clear();
             Console.WriteLine("Menu Region:");
             Console.WriteLine("1. Tampilkan Region");
             Console.WriteLine("2. Create Region");
             Console.WriteLine("3. Update Region");
             Console.WriteLine("4. Delete Region");
-            Console.WriteLine("5. Kembali ke Menu Utama");
+            Console.WriteLine("5. Get ID Region");
+            Console.WriteLine("6. Kembali ke Menu Utama");
 
-            Console.Write("Pilih menu (1-4): ");
+            Console.Write("Pilih menu (1-5): ");
             string input = Console.ReadLine();
 
             if (input == "1")
@@ -164,6 +170,12 @@ public class Program
             }
             else if (input == "5")
             {
+                Console.Write("Masukkan ID region: ");
+                int id = int.Parse(Console.ReadLine());
+                GetRegionById(id);
+            }
+            else if (input == "6")
+            {
                 break;
             }
             else
@@ -175,6 +187,7 @@ public class Program
             Console.WriteLine();
         }
     }
+
     //Get all data
     public static void GetRegions()
     {
@@ -250,6 +263,45 @@ public class Program
     }
 
     //INSERT
+    public static void InsertCountry(string name)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "INSERT INTO Regions values (@name)";
+
+        _connection.Open();
+        SqlTransaction transaction = _connection.BeginTransaction();
+        sqlCommand.Transaction = transaction;
+        try
+        {
+            SqlParameter pName = new SqlParameter();
+            pName.ParameterName = "@name";
+            pName.SqlDbType = System.Data.SqlDbType.VarChar;
+            pName.Value = name;
+            sqlCommand.Parameters.Add(pName);
+
+            int result = sqlCommand.ExecuteNonQuery();
+            if (result > 0)
+            {
+                Console.WriteLine("Insert Success");
+            }
+            else
+            {
+                Console.WriteLine("Insert Fail");
+            }
+            transaction.Commit();
+            _connection.Close();
+        }
+        catch
+        {
+            transaction.Rollback();
+            Console.WriteLine("Error connection to Database");
+        }
+
+
+    }
     public static void InsertRegions(string name)
     {
         _connection = new SqlConnection(_connectionString);
