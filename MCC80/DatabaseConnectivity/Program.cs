@@ -38,7 +38,8 @@ public class Program
             }
             else if (input == "2")
             {
-                //departments
+                Console.Clear();
+                DepartmentMenu();
             }
             else if (input == "3")
             {
@@ -74,6 +75,156 @@ public class Program
             }
         }
     }
+    public static void HistoriesMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("Menu Histories:");
+            Console.WriteLine("1. Tampilkan Semua Histories");
+            Console.WriteLine("2. Tampilkan History berdasarkan Employee ID");
+            Console.WriteLine("3. Create History");
+            Console.WriteLine("4. Update History");
+            Console.WriteLine("5. Delete History");
+            Console.WriteLine("6. Kembali ke Menu Utama");
+
+            Console.Write("Pilih menu (1-6): ");
+            string input = Console.ReadLine();
+
+            if (input == "1")
+            {
+                Console.Clear();
+                GetHistories();
+            }
+            else if (input == "2")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Employee ID: ");
+                int employeeId = int.Parse(Console.ReadLine());
+                GetHistoryByEmployeeId(employeeId);
+            }
+            else if (input == "3")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Start Date (yyyy-mm-dd): ");
+                DateTime startDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Masukkan Employee ID: ");
+                int employeeId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan End Date (yyyy-mm-dd): ");
+                DateTime endDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Masukkan Department ID: ");
+                int departmentId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan Job ID: ");
+                string jobId = Console.ReadLine();
+                InsertHistory(startDate, employeeId, endDate, departmentId, jobId);
+            }
+            else if (input == "4")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Employee ID History yang akan diupdate: ");
+                int employeeId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan Start Date baru (yyyy-mm-dd): ");
+                DateTime startDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Masukkan Employee ID baru: ");
+                int newEmployeeId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan End Date baru (yyyy-mm-dd): ");
+                DateTime endDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Masukkan Department ID baru: ");
+                int departmentId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan Job ID baru: ");
+                string jobId = Console.ReadLine();
+                UpdateHistory(employeeId, startDate, newEmployeeId, endDate, departmentId, jobId);
+            }
+            else if (input == "5")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Employee ID History yang akan dihapus: ");
+                int employeeId = int.Parse(Console.ReadLine());
+                DeleteHistory(employeeId);
+            }
+            else if (input == "6")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Input tidak valid. Silakan coba lagi.");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+        }
+    }
+    public static void DepartmentMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("Menu Departments:");
+            Console.WriteLine("1. Tampilkan Departments");
+            Console.WriteLine("2. Tambah Department");
+            Console.WriteLine("3. Update Department");
+            Console.WriteLine("4. Hapus Department");
+            Console.WriteLine("5. Cari Department berdasarkan ID");
+            Console.WriteLine("6. Kembali ke Menu Utama");
+
+            Console.Write("Pilih menu (1-6): ");
+            string input = Console.ReadLine();
+
+            if (input == "1")
+            {
+                Console.Clear();
+                GetDepartments();
+            }
+            else if (input == "2")
+            {
+                Console.Clear();
+                Console.Write("Masukkan nama Department: ");
+                string name = Console.ReadLine();
+                Console.Write("Masukkan ID Location: ");
+                int locationId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan ID Manager: ");
+                int managerId = int.Parse(Console.ReadLine());
+                InsertDepartment(name, locationId, managerId);
+            }
+            else if (input == "3")
+            {
+                Console.Clear();
+                Console.Write("Masukkan ID Department yang akan diupdate: ");
+                int departmentId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan nama Department baru: ");
+                string name = Console.ReadLine();
+                Console.Write("Masukkan ID Location baru: ");
+                int locationId = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan ID Manager baru: ");
+                int managerId = int.Parse(Console.ReadLine());
+                UpdateDepartment(departmentId, name, locationId, managerId);
+            }
+            else if (input == "4")
+            {
+                Console.Clear();
+                Console.Write("Masukkan ID Department yang akan dihapus: ");
+                int departmentId = int.Parse(Console.ReadLine());
+                DeleteDepartment(departmentId);
+            }
+            else if (input == "5")
+            {
+                Console.Clear();
+                Console.Write("Masukkan ID Department yang ingin dicari: ");
+                int departmentId = int.Parse(Console.ReadLine());
+                GetDepartmentById(departmentId);
+            }
+            else if (input == "6")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Input tidak valid. Silakan coba lagi.");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+        }
+    }
 
     public static void LocationMenu()
     {
@@ -84,9 +235,10 @@ public class Program
             Console.WriteLine("2. Create Location");
             Console.WriteLine("3. Update Location");
             Console.WriteLine("4. Delete Location");
-            Console.WriteLine("5. Kembali ke Menu Utama");
+            Console.WriteLine("5. Cari Location berdasarkan ID");
+            Console.WriteLine("6. Kembali ke Menu Utama");
 
-            Console.Write("Pilih menu (1-5): ");
+            Console.Write("Pilih menu (1-6): ");
             string input = Console.ReadLine();
 
             if (input == "1")
@@ -135,6 +287,13 @@ public class Program
             }
             else if (input == "5")
             {
+                Console.Clear();
+                Console.Write("Masukkan ID Location yang ingin dicari: ");
+                int locationId = int.Parse(Console.ReadLine());
+                GetLocationById(locationId);
+            }
+            else if (input == "6")
+            {
                 break;
             }
             else
@@ -157,9 +316,10 @@ public class Program
             Console.WriteLine("2. Create Countries");
             Console.WriteLine("3. Update Countries");
             Console.WriteLine("4. Delete Countries");
-            Console.WriteLine("5. Kembali ke Menu Utama");
+            Console.WriteLine("5. Cari Countries berdasarkan ID");
+            Console.WriteLine("6. Kembali ke Menu Utama");
 
-            Console.Write("Pilih menu (1-4): ");
+            Console.Write("Pilih menu (1-6): ");
             string input = Console.ReadLine();
 
             if (input == "1")
@@ -194,6 +354,13 @@ public class Program
                 DeleteRegions(id);
             }
             else if (input == "5")
+            {
+                Console.Clear();
+                Console.Write("Masukkan ID Country yang ingin dicari: ");
+                int country_id = int.Parse(Console.ReadLine());
+                GetCountryById(country_id);
+            }
+            else if (input == "6")
             {
                 break;
             }
@@ -272,6 +439,84 @@ public class Program
     }
 
     //Get all data
+    public static void GetHistories()
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Histories";
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("History ID: " + reader.GetInt32(0));
+                    Console.WriteLine("Start Date: " + reader.GetDateTime(1).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Employee ID: " + reader.GetInt32(2));
+                    Console.WriteLine("End Date: " + reader.GetDateTime(3).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Department ID: " + reader.GetInt32(4));
+                    Console.WriteLine("Job ID: " + reader.GetString(5));
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Histories Found");
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void GetDepartments()
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Departments";
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int locationId = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+                    int managerId = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+
+                    Console.WriteLine("Department ID: " + reader.GetInt32(0));
+                    Console.WriteLine("Name: " + reader.GetString(1));
+                    Console.WriteLine("Location ID: " + locationId);
+                    Console.WriteLine("Manager ID: " + managerId);
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Departments Found");
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+
     public static void GetLocations()
     {
         _connection = new SqlConnection(_connectionString);
@@ -391,6 +636,71 @@ public class Program
     }
 
     //INSERT
+    public static void InsertHistory(DateTime startDate, int employeeId, DateTime endDate, int departmentId, string jobId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "INSERT INTO Histories (start_date, employee_id, end_date, department_id, job_id) VALUES (@startDate, @employeeId, @endDate, @departmentId, @jobId)";
+        sqlCommand.Parameters.AddWithValue("@startDate", startDate);
+        sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
+        sqlCommand.Parameters.AddWithValue("@endDate", endDate);
+        sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
+        sqlCommand.Parameters.AddWithValue("@jobId", jobId);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Insert Success");
+            }
+            else
+            {
+                Console.WriteLine("Insert Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void InsertDepartment(string name, int locationId, int managerId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "INSERT INTO Departments (name, location_id, manager_id) VALUES (@name, @locationId, @managerId)";
+
+        try
+        {
+            _connection.Open();
+            sqlCommand.Parameters.AddWithValue("@name", name);
+            sqlCommand.Parameters.AddWithValue("@locationId", locationId);
+            sqlCommand.Parameters.AddWithValue("@managerId", managerId);
+
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Insert Success");
+            }
+            else
+            {
+                Console.WriteLine("Insert Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void InsertLocation(string streetAddress, string postalCode, string city, string stateProvince, int countryId)
     {
         _connection = new SqlConnection(_connectionString);
@@ -512,6 +822,73 @@ public class Program
     }
 
     // UPDATE
+    public static void UpdateHistory(int employeeId, DateTime startDate, int newEmployeeId, DateTime endDate, int departmentId, string jobId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "UPDATE Histories SET start_date = @startDate, employee_id = @newEmployeeId, end_date = @endDate, department_id = @departmentId, job_id = @jobId WHERE employee_id = @employeeId";
+        sqlCommand.Parameters.AddWithValue("@startDate", startDate);
+        sqlCommand.Parameters.AddWithValue("@newEmployeeId", newEmployeeId);
+        sqlCommand.Parameters.AddWithValue("@endDate", endDate);
+        sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
+        sqlCommand.Parameters.AddWithValue("@jobId", jobId);
+        sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Update Success");
+            }
+            else
+            {
+                Console.WriteLine("Update Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void UpdateDepartment(int departmentId, string name, int locationId, int managerId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "UPDATE Departments SET name = @name, location_id = @locationId, manager_id = @managerId WHERE department_id = @departmentId";
+
+        try
+        {
+            _connection.Open();
+            sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
+            sqlCommand.Parameters.AddWithValue("@name", name);
+            sqlCommand.Parameters.AddWithValue("@locationId", locationId);
+            sqlCommand.Parameters.AddWithValue("@managerId", managerId);
+
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Update Success");
+            }
+            else
+            {
+                Console.WriteLine("Update Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void UpdateLocation(int id, string streetAddress, string postalCode, string city, string stateProvince, int countryId)
     {
         _connection = new SqlConnection(_connectionString);
@@ -636,6 +1013,65 @@ public class Program
     }
 
     //DELETE
+    public static void DeleteHistory(int employeeId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "DELETE FROM Histories WHERE employee_id = @employeeId";
+        sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
+
+        try
+        {
+            _connection.Open();
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Delete Success");
+            }
+            else
+            {
+                Console.WriteLine("Delete Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void DeleteDepartment(int departmentId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "DELETE FROM Departments WHERE department_id = @departmentId";
+
+        try
+        {
+            _connection.Open();
+            sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
+
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Delete Success");
+            }
+            else
+            {
+                Console.WriteLine("Delete Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void DeleteLocation(int id)
     {
         _connection = new SqlConnection(_connectionString);
@@ -743,7 +1179,116 @@ public class Program
     }
 
     //Get by ID Regions
-    public static void GetCountryById(string country_id)
+    public static void GetHistoryByEmployeeId(int employeeId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Histories WHERE employee_id = @employeeId";
+        sqlCommand.Parameters.AddWithValue("@employeeId", employeeId);
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("History ID: " + reader.GetInt32(0));
+                    Console.WriteLine("Start Date: " + reader.GetDateTime(1).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Employee ID: " + reader.GetInt32(2));
+                    Console.WriteLine("End Date: " + reader.GetDateTime(3).ToString("yyyy-MM-dd"));
+                    Console.WriteLine("Department ID: " + reader.GetInt32(4));
+                    Console.WriteLine("Job ID: " + reader.GetString(5));
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No History Found for Employee ID: " + employeeId);
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void GetDepartmentById(int departmentId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Departments WHERE department_id = @departmentId";
+
+        try
+        {
+            _connection.Open();
+            sqlCommand.Parameters.AddWithValue("@departmentId", departmentId);
+
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                Console.WriteLine("Department ID: " + reader.GetInt32(0));
+                Console.WriteLine("Name: " + reader.GetString(1));
+                Console.WriteLine("Location ID: " + reader.GetInt32(2));
+                Console.WriteLine("Manager ID: " + reader.GetInt32(3));
+            }
+            else
+            {
+                Console.WriteLine("Department not found");
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void GetLocationById(int locationId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Locations WHERE location_id = @locationId";
+
+        try
+        {
+            _connection.Open();
+            sqlCommand.Parameters.AddWithValue("@locationId", locationId);
+
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                Console.WriteLine("Location ID: " + reader.GetInt32(0));
+                Console.WriteLine("Street Address: " + reader.GetString(1));
+                Console.WriteLine("Postal Code: " + reader.GetString(2));
+                Console.WriteLine("City: " + reader.GetString(3));
+                Console.WriteLine("State Province: " + reader.GetString(4));
+                Console.WriteLine("Country ID: " + reader.GetInt32(5));
+            }
+            else
+            {
+                Console.WriteLine("Location not found");
+            }
+
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+    public static void GetCountryById(int country_id)
     {
         _connection = new SqlConnection(_connectionString);
 
