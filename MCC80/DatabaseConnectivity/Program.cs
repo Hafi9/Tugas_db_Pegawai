@@ -50,7 +50,8 @@ public class Program
             }
             else if (input == "5")
             {
-                //locations
+                Console.Clear();
+                LocationMenu();
             }
             else if (input == "6")
             {
@@ -74,6 +75,79 @@ public class Program
         }
     }
 
+    public static void LocationMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("Menu Location:");
+            Console.WriteLine("1. Tampilkan Location");
+            Console.WriteLine("2. Create Location");
+            Console.WriteLine("3. Update Location");
+            Console.WriteLine("4. Delete Location");
+            Console.WriteLine("5. Kembali ke Menu Utama");
+
+            Console.Write("Pilih menu (1-5): ");
+            string input = Console.ReadLine();
+
+            if (input == "1")
+            {
+                Console.Clear();
+                GetLocations();
+            }
+            else if (input == "2")
+            {
+                Console.Clear();
+                Console.Write("Masukkan Street Address: ");
+                string streetAddress = Console.ReadLine();
+                Console.Write("Masukkan Postal Code: ");
+                string postalCode = Console.ReadLine();
+                Console.Write("Masukkan City: ");
+                string city = Console.ReadLine();
+                Console.Write("Masukkan State Province: ");
+                string stateProvince = Console.ReadLine();
+                Console.Write("Masukkan Country ID: ");
+                int countryId = int.Parse(Console.ReadLine());
+                InsertLocation(streetAddress, postalCode, city, stateProvince, countryId);
+            }
+            else if (input == "3")
+            {
+                Console.Clear();
+                Console.Write("Masukkan ID location yang akan diupdate: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Write("Masukkan Street Address baru: ");
+                string streetAddress = Console.ReadLine();
+                Console.Write("Masukkan Postal Code baru: ");
+                string postalCode = Console.ReadLine();
+                Console.Write("Masukkan City baru: ");
+                string city = Console.ReadLine();
+                Console.Write("Masukkan State Province baru: ");
+                string stateProvince = Console.ReadLine();
+                Console.Write("Masukkan Country ID baru: ");
+                int countryId = int.Parse(Console.ReadLine());
+                UpdateLocation(id, streetAddress, postalCode, city, stateProvince, countryId);
+            }
+            else if (input == "4")
+            {
+                Console.Clear();
+                Console.Write("Masukkan ID location yang akan dihapus: ");
+                int id = int.Parse(Console.ReadLine());
+                DeleteLocation(id);
+            }
+            else if (input == "5")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Input tidak valid. Silakan coba lagi.");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+        }
+    }
+
+
     public static void CountriesMenu()
     {
         while (true)
@@ -95,9 +169,12 @@ public class Program
             }
             else if (input == "2")
             {
-                //Console.Write("Masukkan nama country yang akan dibuat: ");
-                //string name = Console.ReadLine();
-                //InsertCountry(name);
+                Console.Clear();
+                Console.Write("Masukkan ID country yang akan dibuat: ");
+                Console.Write("Masukkan nama country yang akan dibuat: ");
+                string name = Console.ReadLine();
+                string country_id = Console.ReadLine();
+                InsertCountry(name, country_id);
             }
             else if (input == "3")
             {
@@ -106,7 +183,8 @@ public class Program
                 int id = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan nama region baru: ");
                 string name = Console.ReadLine();
-                UpdateRegions(name, id);
+                string country_id = string.Empty;
+                UpdateCounrty(name, country_id);
             }
             else if (input == "4")
             {
@@ -146,16 +224,19 @@ public class Program
 
             if (input == "1")
             {
+                Console.Clear();
                 GetRegions();
             }
             else if (input == "2")
             {
+                Console.Clear();
                 Console.Write("Masukkan nama region yang akan dibuat: ");
                 string name = Console.ReadLine();
                 InsertRegions(name);
             }
             else if (input == "3")
             {
+                Console.Clear();
                 Console.Write("Masukkan ID region yang akan diupdate: ");
                 int id = int.Parse(Console.ReadLine());
                 Console.Write("Masukkan nama region baru: ");
@@ -164,12 +245,14 @@ public class Program
             }
             else if (input == "4")
             {
+                Console.Clear();
                 Console.Write("Masukkan ID region yang akan dihapus: ");
                 int id = int.Parse(Console.ReadLine());
                 DeleteRegions(id);
             }
             else if (input == "5")
             {
+                Console.Clear();
                 Console.Write("Masukkan ID region: ");
                 int id = int.Parse(Console.ReadLine());
                 GetRegionById(id);
@@ -189,6 +272,51 @@ public class Program
     }
 
     //Get all data
+    public static void GetLocations()
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM Locations";
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string streetAddress = reader.IsDBNull(1) ? "N/A" : reader.GetString(1);
+                    string postalCode = reader.IsDBNull(2) ? "N/A" : reader.GetString(2);
+                    string city = reader.IsDBNull(3) ? "N/A" : reader.GetString(3);
+                    string stateProvince = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
+                    string countryId = reader.IsDBNull(5) ? "N/A" : reader.GetString(5);
+
+                    Console.WriteLine("Id: " + id);
+                    Console.WriteLine("Street Address: " + streetAddress);
+                    Console.WriteLine("Postal Code: " + postalCode);
+                    Console.WriteLine("City: " + city);
+                    Console.WriteLine("State Province: " + stateProvince);
+                    Console.WriteLine("Id Country: " + countryId);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Locations Found");
+            }
+            reader.Close();
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+            Console.WriteLine("Stack Trace: " + ex.StackTrace);
+        }
+    }
+
     public static void GetRegions()
     {
         _connection = new SqlConnection(_connectionString);
@@ -263,13 +391,48 @@ public class Program
     }
 
     //INSERT
-    public static void InsertCountry(string name)
+    public static void InsertLocation(string streetAddress, string postalCode, string city, string stateProvince, int countryId)
     {
         _connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
         sqlCommand.Connection = _connection;
-        sqlCommand.CommandText = "INSERT INTO Regions values (@name)";
+        sqlCommand.CommandText = "INSERT INTO Locations (street_address, postal_code, city, state_province, country_id) VALUES (@street_address, @postal_code, @city, @state_province, @country_id)";
+
+        try
+        {
+            _connection.Open();
+            sqlCommand.Parameters.AddWithValue("@street_address", streetAddress);
+            sqlCommand.Parameters.AddWithValue("@postal_code", postalCode);
+            sqlCommand.Parameters.AddWithValue("@city", city);
+            sqlCommand.Parameters.AddWithValue("@state_province", stateProvince);
+            sqlCommand.Parameters.AddWithValue("@country_id", countryId);
+
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Insert Success");
+            }
+            else
+            {
+                Console.WriteLine("Insert Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
+
+    public static void InsertCountry(string name, string country_id)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "INSERT INTO Countries values1 (@name), values2 (@country_id)";
 
         _connection.Open();
         SqlTransaction transaction = _connection.BeginTransaction();
@@ -281,6 +444,12 @@ public class Program
             pName.SqlDbType = System.Data.SqlDbType.VarChar;
             pName.Value = name;
             sqlCommand.Parameters.Add(pName);
+
+            SqlParameter pCountryID = new SqlParameter();
+            pCountryID.ParameterName = "@country_id";
+            pCountryID.SqlDbType = System.Data.SqlDbType.VarChar;
+            pCountryID.Value = country_id;
+            sqlCommand.Parameters.Add(pCountryID);
 
             int result = sqlCommand.ExecuteNonQuery();
             if (result > 0)
@@ -343,6 +512,41 @@ public class Program
     }
 
     // UPDATE
+    public static void UpdateLocation(int id, string streetAddress, string postalCode, string city, string stateProvince, int countryId)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "UPDATE Locations SET StreetAddress = @streetAddress, PostalCode = @postalCode, City = @city, StateProvince = @stateProvince, CountryId = @countryId WHERE Id = @id";
+
+        try
+        {
+            _connection.Open();
+            sqlCommand.Parameters.AddWithValue("@streetAddress", streetAddress);
+            sqlCommand.Parameters.AddWithValue("@postalCode", postalCode);
+            sqlCommand.Parameters.AddWithValue("@city", city);
+            sqlCommand.Parameters.AddWithValue("@stateProvince", stateProvince);
+            sqlCommand.Parameters.AddWithValue("@countryId", countryId);
+            sqlCommand.Parameters.AddWithValue("@id", id);
+
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Update Success");
+            }
+            else
+            {
+                Console.WriteLine("Update Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void UpdateCounrty(string name, string country_id)
     {
         _connection = new SqlConnection(_connectionString);
@@ -432,6 +636,36 @@ public class Program
     }
 
     //DELETE
+    public static void DeleteLocation(int id)
+    {
+        _connection = new SqlConnection(_connectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "DELETE FROM Locations WHERE Id = @id";
+
+        try
+        {
+            _connection.Open();
+            sqlCommand.Parameters.AddWithValue("@id", id);
+
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Delete Success");
+            }
+            else
+            {
+                Console.WriteLine("Delete Failed");
+            }
+
+            _connection.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error connecting to the database: " + ex.Message);
+        }
+    }
     public static void DeleteCountries(string country_id)
     {
         _connection = new SqlConnection(_connectionString);
