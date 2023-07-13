@@ -21,6 +21,7 @@ public class Program
             Console.WriteLine("2. Country");
             Console.WriteLine("3. Location");
             Console.WriteLine("4. Department");
+            Console.WriteLine("5. History");
             Console.WriteLine("8. Exit");
             Console.WriteLine("Pilih: ");
 
@@ -41,6 +42,9 @@ public class Program
                         break;
                     case 4:
                         DepartmentMenu();
+                        break;
+                    case 5:
+                        HistoryMenu();
                         break;
                     case 8:
                         ulang = false;
@@ -204,6 +208,45 @@ public class Program
                     break;
                 case 5:
                     departmentController.GetAll();
+                    PressAnyKey();
+                    break;
+                case 6:
+                    isTrue = false;
+                    break;
+                default:
+                    InvalidInput();
+                    break;
+            }
+        } while (isTrue);
+    }
+    private static void HistoryMenu()
+    {
+        History history = new History();
+        VHistory vhistory = new VHistory();
+        HistoryC historyController = new HistoryC(history, vhistory);
+
+        bool isTrue = true;
+        do
+        {
+            int pilihMenu = vhistory.Menu();
+            switch (pilihMenu)
+            {
+                case 1:
+                    historyController.Insert();
+                    PressAnyKey();
+                    break;
+                case 2:
+                    historyController.Update();
+                    PressAnyKey();
+                    break;
+                case 3:
+                    historyController.Delete();
+                    break;
+                case 4:
+                    historyController.SearchByEmployeeId();
+                    break;
+                case 5:
+                    historyController.GetAll();
                     PressAnyKey();
                     break;
                 case 6:
