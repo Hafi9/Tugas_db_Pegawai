@@ -1,8 +1,7 @@
-﻿using DatabaseConnectivity.Models;
-using DatabaseConnectivity.Views;
-using System;
+﻿using MCCArchitecture.Models;
+using MCCArchitecture.Views;
 
-namespace DatabaseConnectivity.Controllers;
+namespace MCCArchitecture.Controllers;
 
 public class RegionC
 {
@@ -52,6 +51,37 @@ public class RegionC
         var region = _regionView.UpdateMenu();
         var result = _regionModel.Update(region);
 
+        switch (result)
+        {
+            case -1:
+                _regionView.Error();
+                break;
+            case 0:
+                _regionView.Failure();
+                break;
+            default:
+                _regionView.Success();
+                break;
+        }
+    }
+    public void SearchById()
+    {
+        int id = _regionView.GetRegionId();
+        var result = _regionModel.GetById(id);
+        if (result == null)
+        {
+            _regionView.RegionNotFound();
+        }
+        else
+        {
+            _regionView.GetById(result);
+        }
+    }
+
+    public void Delete()
+    {
+        int id = _regionView.GetRegionId();
+        var result = _regionModel.Delete(id);
         switch (result)
         {
             case -1:
