@@ -8,9 +8,16 @@ namespace MCCArchitecture.Views
     {
         public void GetAll(List<Employee> employees)
         {
-            foreach (var employee in employees)
+            if (employees.Count == 0)
             {
-                GetById(employee);
+                DataEmpty();
+            }
+            else
+            {
+                foreach (var employee in employees)
+                {
+                    GetById(employee);
+                }
             }
         }
 
@@ -24,15 +31,14 @@ namespace MCCArchitecture.Views
             Console.WriteLine("Hire Date: " + employee.HireDate);
             Console.WriteLine("Salary: " + employee.Salary);
             Console.WriteLine("Commission Pct: " + employee.CommissionPct);
-            Console.WriteLine("Manager ID: " + (employee.ManagerId.HasValue ? employee.ManagerId.Value.ToString() : "N/A"));
-            Console.WriteLine("Job ID: " + employee.JobId);
-            Console.WriteLine("Department ID: " + (employee.DepartmentId.HasValue ? employee.DepartmentId.Value.ToString() : "N/A"));
+            Console.WriteLine("Manager ID: " + employee.ManagerId);
+            Console.WriteLine("Department ID: " + employee.DepartmentId);
             Console.WriteLine("==========================");
         }
 
         public void DataEmpty()
         {
-            Console.WriteLine("Data Not Found!");
+            Console.WriteLine("No employees found.");
         }
 
         public void Success()
@@ -42,123 +48,25 @@ namespace MCCArchitecture.Views
 
         public void Failure()
         {
-            Console.WriteLine("Failure!");
+            Console.WriteLine("Operation failed. Employee ID not found.");
         }
 
         public void Error()
         {
-            Console.WriteLine("Error!");
+            Console.WriteLine("An error occurred while retrieving data.");
         }
 
-        public int GetEmployeeId()
+        public void EmployeeNotFound()
         {
-            Console.WriteLine("Enter Employee ID: ");
-            int employeeId = Convert.ToInt32(Console.ReadLine());
-            return employeeId;
-        }
-
-        public Employee InsertMenu()
-        {
-            Console.WriteLine("Enter First Name: ");
-            string firstName = Console.ReadLine();
-
-            Console.WriteLine("Enter Last Name: ");
-            string lastName = Console.ReadLine();
-
-            Console.WriteLine("Enter Email: ");
-            string email = Console.ReadLine();
-
-            Console.WriteLine("Enter Phone Number: ");
-            string phoneNumber = Console.ReadLine();
-
-            Console.WriteLine("Enter Hire Date (yyyy-mm-dd): ");
-            DateTime hireDate = Convert.ToDateTime(Console.ReadLine());
-
-            Console.WriteLine("Enter Salary: ");
-            int salary = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Enter Commission Pct: ");
-            decimal commissionPct = Convert.ToDecimal(Console.ReadLine());
-
-            Console.WriteLine("Enter Manager ID (optional): ");
-            int? managerId = Console.ReadLine() != "" ? Convert.ToInt32(Console.ReadLine()) : null;
-
-            Console.WriteLine("Enter Job ID: ");
-            string jobId = Console.ReadLine();
-
-            Console.WriteLine("Enter Department ID (optional): ");
-            int? departmentId = Console.ReadLine() != "" ? Convert.ToInt32(Console.ReadLine()) : null;
-
-            return new Employee
-            {
-                EmployeeId = 0,
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                PhoneNumber = phoneNumber,
-                HireDate = hireDate,
-                Salary = salary,
-                CommissionPct = commissionPct,
-                ManagerId = managerId,
-                JobId = jobId,
-                DepartmentId = departmentId
-            };
-        }
-
-        public Employee UpdateMenu(Employee employee)
-        {
-            Console.WriteLine("Enter First Name (Current: " + employee.FirstName + "): ");
-            string firstName = Console.ReadLine();
-
-            Console.WriteLine("Enter Last Name (Current: " + employee.LastName + "): ");
-            string lastName = Console.ReadLine();
-
-            Console.WriteLine("Enter Email (Current: " + employee.Email + "): ");
-            string email = Console.ReadLine();
-
-            Console.WriteLine("Enter Phone Number (Current: " + employee.PhoneNumber + "): ");
-            string phoneNumber = Console.ReadLine();
-
-            Console.WriteLine("Enter Hire Date (Current: " + employee.HireDate.ToString("yyyy-MM-dd") + "): ");
-            DateTime hireDate = Convert.ToDateTime(Console.ReadLine());
-
-            Console.WriteLine("Enter Salary (Current: " + employee.Salary + "): ");
-            int salary = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Enter Commission Pct (Current: " + employee.CommissionPct + "): ");
-            decimal commissionPct = Convert.ToDecimal(Console.ReadLine());
-
-            Console.WriteLine("Enter Manager ID (Current: " + (employee.ManagerId.HasValue ? employee.ManagerId.Value.ToString() : "N/A") + "): ");
-            int? managerId = Console.ReadLine() != "" ? Convert.ToInt32(Console.ReadLine()) : null;
-
-            Console.WriteLine("Enter Job ID (Current: " + employee.JobId + "): ");
-            string jobId = Console.ReadLine();
-
-            Console.WriteLine("Enter Department ID (Current: " + (employee.DepartmentId.HasValue ? employee.DepartmentId.Value.ToString() : "N/A") + "): ");
-            int? departmentId = Console.ReadLine() != "" ? Convert.ToInt32(Console.ReadLine()) : null;
-
-            return new Employee
-            {
-                EmployeeId = employee.EmployeeId,
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                PhoneNumber = phoneNumber,
-                HireDate = hireDate,
-                Salary = salary,
-                CommissionPct = commissionPct,
-                ManagerId = managerId,
-                JobId = jobId,
-                DepartmentId = departmentId
-            };
+            Console.WriteLine("Employee not found for the given employee ID.");
         }
 
         public int Menu()
         {
             Console.WriteLine("== Menu Employee ==");
-            Console.WriteLine("1. Tambah");
+            Console.WriteLine("1. Insert");
             Console.WriteLine("2. Update");
-            Console.WriteLine("3. Hapus");
+            Console.WriteLine("3. Delete");
             Console.WriteLine("4. Search By Id");
             Console.WriteLine("5. Get All");
             Console.WriteLine("6. Main Menu");
@@ -168,9 +76,104 @@ namespace MCCArchitecture.Views
             return input;
         }
 
-        public void EmployeeNotFound()
+        public Employee InsertMenu()
         {
-            Console.WriteLine("Employee not found!");
+            Console.WriteLine("Enter Employee ID: ");
+            int employeeId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter First Name: ");
+            string firstName = Console.ReadLine();
+
+            Console.WriteLine("Enter Last Name (or leave empty): ");
+            string lastName = Console.ReadLine();
+
+            Console.WriteLine("Enter Email: ");
+            string email = Console.ReadLine();
+
+            Console.WriteLine("Enter Phone Number: ");
+            string phoneNumber = Console.ReadLine();
+
+            Console.WriteLine("Enter Hire Date (YYYY-MM-DD): ");
+            DateTime hireDate = Convert.ToDateTime(Console.ReadLine());
+
+            Console.WriteLine("Enter Salary: ");
+            int salary = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Commission Pct: ");
+            decimal commissionPct = Convert.ToDecimal(Console.ReadLine());
+
+            Console.WriteLine("Enter Manager ID (or leave empty): ");
+            int managerId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Department ID: ");
+            int departmentId = Convert.ToInt32(Console.ReadLine());
+
+            return new Employee
+            {
+                EmployeeId = employeeId,
+                FirstName = firstName,
+                LastName = string.IsNullOrEmpty(lastName) ? null : lastName,
+                Email = email,
+                PhoneNumber = phoneNumber,
+                HireDate = hireDate,
+                Salary = salary,
+                CommissionPct = commissionPct,
+                ManagerId = managerId,
+                DepartmentId = departmentId
+            };
+        }
+
+        public Employee UpdateMenu(Employee employee)
+        {
+            Console.WriteLine("Enter Employee ID to Update: ");
+            int employeeId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Updated First Name: ");
+            string firstName = Console.ReadLine();
+
+            Console.WriteLine("Enter Updated Last Name (or leave empty): ");
+            string lastName = Console.ReadLine();
+
+            Console.WriteLine("Enter Updated Email: ");
+            string email = Console.ReadLine();
+
+            Console.WriteLine("Enter Updated Phone Number: ");
+            string phoneNumber = Console.ReadLine();
+
+            Console.WriteLine("Enter Updated Hire Date (YYYY-MM-DD): ");
+            DateTime hireDate = Convert.ToDateTime(Console.ReadLine());
+
+            Console.WriteLine("Enter Updated Salary: ");
+            int salary = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Updated Commission Pct: ");
+            decimal commissionPct = Convert.ToDecimal(Console.ReadLine());
+
+            Console.WriteLine("Enter Updated Manager ID (or leave empty): ");
+            int managerId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Updated Department ID: ");
+            int departmentId = Convert.ToInt32(Console.ReadLine());
+
+            return new Employee
+            {
+                EmployeeId = employeeId,
+                FirstName = firstName,
+                LastName = string.IsNullOrEmpty(lastName) ? null : lastName,
+                Email = email,
+                PhoneNumber = phoneNumber,
+                HireDate = hireDate,
+                Salary = salary,
+                CommissionPct = commissionPct,
+                ManagerId = managerId,
+                DepartmentId = departmentId
+            };
+        }
+
+        public int GetEmployeeId()
+        {
+            Console.WriteLine("Enter Employee ID: ");
+            return Convert.ToInt32(Console.ReadLine());
         }
     }
 }
