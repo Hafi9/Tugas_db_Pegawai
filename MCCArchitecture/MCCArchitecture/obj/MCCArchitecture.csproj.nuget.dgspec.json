@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repos\\MCCArchitecture\\MCCArchitecture\\MCCArchitecture.csproj": {}
+    "D:\\Git\\Tugas_db_Pegawai\\MCCArchitecture\\MCCArchitecture\\MCCArchitecture.csproj": {}
   },
   "projects": {
-    "D:\\Repos\\MCCArchitecture\\MCCArchitecture\\MCCArchitecture.csproj": {
+    "D:\\Git\\Tugas_db_Pegawai\\MCCArchitecture\\MCCArchitecture\\MCCArchitecture.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repos\\MCCArchitecture\\MCCArchitecture\\MCCArchitecture.csproj",
+        "projectUniqueName": "D:\\Git\\Tugas_db_Pegawai\\MCCArchitecture\\MCCArchitecture\\MCCArchitecture.csproj",
         "projectName": "MCCArchitecture",
-        "projectPath": "D:\\Repos\\MCCArchitecture\\MCCArchitecture\\MCCArchitecture.csproj",
+        "projectPath": "D:\\Git\\Tugas_db_Pegawai\\MCCArchitecture\\MCCArchitecture\\MCCArchitecture.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Repos\\MCCArchitecture\\MCCArchitecture\\obj\\",
+        "outputPath": "D:\\Git\\Tugas_db_Pegawai\\MCCArchitecture\\MCCArchitecture\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
