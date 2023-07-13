@@ -19,6 +19,7 @@ public class Program
             Console.WriteLine("Pilih menu untuk masuk ke menunya");
             Console.WriteLine("1. Regions");
             Console.WriteLine("2. Country");
+            Console.WriteLine("3. Location");
             Console.WriteLine("8. Exit");
             Console.WriteLine("Pilih: ");
 
@@ -33,6 +34,9 @@ public class Program
                         break;
                     case 2:
                         CountryMenu();
+                        break;
+                    case 3:
+                        LocationMenu();
                         break;
                     case 8:
                         ulang = false;
@@ -117,6 +121,46 @@ public class Program
                     break;
                 case 5:
                     countryController.GetAll();
+                    PressAnyKey();
+                    break;
+                case 6:
+                    isTrue = false;
+                    break;
+                default:
+                    InvalidInput();
+                    break;
+            }
+        } while (isTrue);
+    }
+
+    private static void LocationMenu()
+    {
+        Location location = new Location();
+        VLocation vlocation = new VLocation();
+        LocationC locationController = new LocationC(location, vlocation);
+
+        bool isTrue = true;
+        do
+        {
+            int pilihMenu = vlocation.Menu();
+            switch (pilihMenu)
+            {
+                case 1:
+                    locationController.Insert();
+                    PressAnyKey();
+                    break;
+                case 2:
+                    locationController.Update();
+                    PressAnyKey();
+                    break;
+                case 3:
+                    locationController.Delete();
+                    break;
+                case 4:
+                    locationController.SearchById();
+                    break;
+                case 5:
+                    locationController.GetAll();
                     PressAnyKey();
                     break;
                 case 6:
