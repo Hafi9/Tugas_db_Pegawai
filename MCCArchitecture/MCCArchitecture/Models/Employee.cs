@@ -123,7 +123,7 @@ namespace MCCArchitecture.Models
                 sqlCommand.Parameters.AddWithValue("@salary", employee.Salary);
                 sqlCommand.Parameters.AddWithValue("@commission_pct", employee.CommissionPct);
                 sqlCommand.Parameters.AddWithValue("@manager_id", employee.ManagerId);
-                sqlCommand.Parameters.AddWithValue("job_id", employee.JobId);
+                sqlCommand.Parameters.AddWithValue("@job_id", employee.JobId);
                 sqlCommand.Parameters.AddWithValue("@department_id", employee.DepartmentId);
 
                 try
@@ -155,7 +155,7 @@ namespace MCCArchitecture.Models
                 sqlCommand.Parameters.AddWithValue("@salary", employee.Salary);
                 sqlCommand.Parameters.AddWithValue("@commission_pct", employee.CommissionPct);
                 sqlCommand.Parameters.AddWithValue("@manager_id", employee.ManagerId);
-                sqlCommand.Parameters.AddWithValue("job_id", employee.JobId);
+                sqlCommand.Parameters.AddWithValue("@job_id", employee.JobId);
                 sqlCommand.Parameters.AddWithValue("@department_id", employee.DepartmentId);
                 sqlCommand.Parameters.AddWithValue("@employee_id", employee.EmployeeId);
 

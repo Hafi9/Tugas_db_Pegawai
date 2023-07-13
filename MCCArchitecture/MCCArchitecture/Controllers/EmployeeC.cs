@@ -31,7 +31,7 @@ namespace MCCArchitecture.Controllers
 
         public void Insert()
         {
-            var employee = _employeeView.InsertMenu();
+            var employee = _employeeView.AddEmployeeMenu();
 
             var result = _employeeModel.Insert(employee);
             switch (result)
@@ -51,14 +51,9 @@ namespace MCCArchitecture.Controllers
         public void Update()
         {
             var employeeId = _employeeView.GetEmployeeId();
-            var employee = _employeeModel.GetById(employeeId);
-            if (employee == null)
-            {
-                _employeeView.EmployeeNotFound();
-                return;
-            }
+            var updatedEmployee = _employeeView.UpdateEmployeeMenu();
 
-            var updatedEmployee = _employeeView.UpdateMenu(employee);
+            updatedEmployee.EmployeeId = employeeId;
 
             var result = _employeeModel.Update(updatedEmployee);
             switch (result)
@@ -78,12 +73,6 @@ namespace MCCArchitecture.Controllers
         public void Delete()
         {
             var employeeId = _employeeView.GetEmployeeId();
-            var employee = _employeeModel.GetById(employeeId);
-            if (employee == null)
-            {
-                _employeeView.EmployeeNotFound();
-                return;
-            }
 
             var result = _employeeModel.Delete(employeeId);
             switch (result)

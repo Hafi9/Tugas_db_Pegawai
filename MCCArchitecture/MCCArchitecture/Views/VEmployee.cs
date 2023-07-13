@@ -8,16 +8,9 @@ namespace MCCArchitecture.Views
     {
         public void GetAll(List<Employee> employees)
         {
-            if (employees.Count == 0)
+            foreach (var employee in employees)
             {
-                DataEmpty();
-            }
-            else
-            {
-                foreach (var employee in employees)
-                {
-                    GetById(employee);
-                }
+                GetById(employee);
             }
         }
 
@@ -32,23 +25,36 @@ namespace MCCArchitecture.Views
             Console.WriteLine("Salary: " + employee.Salary);
             Console.WriteLine("Commission Pct: " + employee.CommissionPct);
             Console.WriteLine("Manager ID: " + employee.ManagerId);
+            Console.WriteLine("Job ID: " + employee.JobId);
             Console.WriteLine("Department ID: " + employee.DepartmentId);
             Console.WriteLine("==========================");
         }
 
+        public int GetEmployeeId()
+        {
+            Console.WriteLine("Enter Employee ID: ");
+            int employeeId = Convert.ToInt32(Console.ReadLine());
+            return employeeId;
+        }
+
+        public void EmployeeNotFound()
+        {
+            Console.WriteLine("Employee not found!");
+        }
+
         public void DataEmpty()
         {
-            Console.WriteLine("No employees found.");
+            Console.WriteLine("No employee records found.");
         }
 
         public void Success()
         {
-            Console.WriteLine("Success!");
+            Console.WriteLine("Operation completed successfully.");
         }
 
         public void Failure()
         {
-            Console.WriteLine("Operation failed. Employee ID not found.");
+            Console.WriteLine("Operation failed. Employee not found.");
         }
 
         public void Error()
@@ -56,27 +62,22 @@ namespace MCCArchitecture.Views
             Console.WriteLine("An error occurred while retrieving data.");
         }
 
-        public void EmployeeNotFound()
-        {
-            Console.WriteLine("Employee not found for the given employee ID.");
-        }
-
         public int Menu()
         {
-            Console.WriteLine("== Menu Employee ==");
-            Console.WriteLine("1. Insert");
-            Console.WriteLine("2. Update");
-            Console.WriteLine("3. Delete");
-            Console.WriteLine("4. Search By Id");
-            Console.WriteLine("5. Get All");
+            Console.WriteLine("== Employee Menu ==");
+            Console.WriteLine("1. Add Employee");
+            Console.WriteLine("2. Update Employee");
+            Console.WriteLine("3. Delete Employee");
+            Console.WriteLine("4. Search by Employee ID");
+            Console.WriteLine("5. Get All Employees");
             Console.WriteLine("6. Main Menu");
-            Console.WriteLine("Pilih: ");
+            Console.WriteLine("Enter your choice: ");
 
             int input = Int32.Parse(Console.ReadLine());
             return input;
         }
 
-        public Employee InsertMenu()
+        public Employee AddEmployeeMenu()
         {
             Console.WriteLine("Enter Employee ID: ");
             int employeeId = Convert.ToInt32(Console.ReadLine());
@@ -84,7 +85,7 @@ namespace MCCArchitecture.Views
             Console.WriteLine("Enter First Name: ");
             string firstName = Console.ReadLine();
 
-            Console.WriteLine("Enter Last Name (or leave empty): ");
+            Console.WriteLine("Enter Last Name: ");
             string lastName = Console.ReadLine();
 
             Console.WriteLine("Enter Email: ");
@@ -102,8 +103,11 @@ namespace MCCArchitecture.Views
             Console.WriteLine("Enter Commission Pct: ");
             decimal commissionPct = Convert.ToDecimal(Console.ReadLine());
 
-            Console.WriteLine("Enter Manager ID (or leave empty): ");
+            Console.WriteLine("Enter Manager ID: ");
             int managerId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Job ID: ");
+            string jobId = Console.ReadLine();
 
             Console.WriteLine("Enter Department ID: ");
             int departmentId = Convert.ToInt32(Console.ReadLine());
@@ -112,26 +116,27 @@ namespace MCCArchitecture.Views
             {
                 EmployeeId = employeeId,
                 FirstName = firstName,
-                LastName = string.IsNullOrEmpty(lastName) ? null : lastName,
+                LastName = lastName,
                 Email = email,
                 PhoneNumber = phoneNumber,
                 HireDate = hireDate,
                 Salary = salary,
                 CommissionPct = commissionPct,
                 ManagerId = managerId,
+                JobId = jobId,
                 DepartmentId = departmentId
             };
         }
 
-        public Employee UpdateMenu(Employee employee)
+        public Employee UpdateEmployeeMenu()
         {
-            Console.WriteLine("Enter Employee ID to Update: ");
+            Console.WriteLine("Enter Employee ID of the Employee to Update: ");
             int employeeId = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Enter Updated First Name: ");
             string firstName = Console.ReadLine();
 
-            Console.WriteLine("Enter Updated Last Name (or leave empty): ");
+            Console.WriteLine("Enter Updated Last Name: ");
             string lastName = Console.ReadLine();
 
             Console.WriteLine("Enter Updated Email: ");
@@ -149,8 +154,11 @@ namespace MCCArchitecture.Views
             Console.WriteLine("Enter Updated Commission Pct: ");
             decimal commissionPct = Convert.ToDecimal(Console.ReadLine());
 
-            Console.WriteLine("Enter Updated Manager ID (or leave empty): ");
+            Console.WriteLine("Enter Updated Manager ID: ");
             int managerId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Updated Job ID: ");
+            string jobId = Console.ReadLine();
 
             Console.WriteLine("Enter Updated Department ID: ");
             int departmentId = Convert.ToInt32(Console.ReadLine());
@@ -159,21 +167,16 @@ namespace MCCArchitecture.Views
             {
                 EmployeeId = employeeId,
                 FirstName = firstName,
-                LastName = string.IsNullOrEmpty(lastName) ? null : lastName,
+                LastName = lastName,
                 Email = email,
                 PhoneNumber = phoneNumber,
                 HireDate = hireDate,
                 Salary = salary,
                 CommissionPct = commissionPct,
                 ManagerId = managerId,
+                JobId = jobId,
                 DepartmentId = departmentId
             };
-        }
-
-        public int GetEmployeeId()
-        {
-            Console.WriteLine("Enter Employee ID: ");
-            return Convert.ToInt32(Console.ReadLine());
         }
     }
 }

@@ -52,7 +52,7 @@ namespace MCCArchitecture.Models
             return histories;
         }
 
-        public History GetById(DateTime startDate, int employeeId)
+        public History GetById(int employeeId)
         {
             var history = new History();
 
@@ -60,8 +60,7 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "SELECT * FROM histories WHERE start_date = @start_date AND employee_id = @employee_id";
-                sqlCommand.Parameters.AddWithValue("@start_date", startDate);
+                sqlCommand.CommandText = "SELECT * FROM histories WHERE employee_id = @employee_id";
                 sqlCommand.Parameters.AddWithValue("@employee_id", employeeId);
 
                 try
@@ -142,15 +141,13 @@ namespace MCCArchitecture.Models
             }
         }
 
-        public int Delete(DateTime startDate, int employeeId)
+        public int Delete(int employeeId)
         {
             using (SqlConnection connection = Connection.Get())
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "DELETE FROM histories WHERE start_date = @start_date AND employee_id = @employee_id";
-
-                sqlCommand.Parameters.AddWithValue("@start_date", startDate);
+                sqlCommand.CommandText = "DELETE FROM histories WHERE employee_id = @employee_id";
                 sqlCommand.Parameters.AddWithValue("@employee_id", employeeId);
 
                 try

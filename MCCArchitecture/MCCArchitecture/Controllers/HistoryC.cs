@@ -69,10 +69,9 @@ namespace MCCArchitecture.Controllers
 
         public void SearchById()
         {
-            DateTime startDate = _historyView.GetStartDate();
             int employeeId = _historyView.GetEmployeeId();
 
-            var result = _historyModel.GetById(startDate, employeeId);
+            var result = _historyModel.GetById(employeeId);
             if (result == null)
             {
                 _historyView.HistoryNotFound();
@@ -85,10 +84,9 @@ namespace MCCArchitecture.Controllers
 
         public void Delete()
         {
-            DateTime startDate = _historyView.GetStartDate();
             int employeeId = _historyView.GetEmployeeId();
 
-            var result = _historyModel.Delete(startDate, employeeId);
+            var result = _historyModel.Delete(employeeId);
             switch (result)
             {
                 case -1:
