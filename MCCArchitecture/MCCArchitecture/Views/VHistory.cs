@@ -135,6 +135,5 @@ namespace MCCArchitecture.Views
             return Convert.ToInt32(Console.ReadLine());
         }
 
-        // Other methods in the class
     }
 }

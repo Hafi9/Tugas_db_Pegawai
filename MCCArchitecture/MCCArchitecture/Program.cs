@@ -22,6 +22,7 @@ public class Program
             Console.WriteLine("3. Location");
             Console.WriteLine("4. Department");
             Console.WriteLine("5. History");
+            Console.WriteLine("6. Job");
             Console.WriteLine("8. Exit");
             Console.WriteLine("Pilih: ");
 
@@ -45,6 +46,9 @@ public class Program
                         break;
                     case 5:
                         HistoryMenu();
+                        break;
+                    case 6:
+                        JobMenu();
                         break;
                     case 8:
                         ulang = false;
@@ -247,6 +251,45 @@ public class Program
                     break;
                 case 5:
                     historyController.GetAll();
+                    PressAnyKey();
+                    break;
+                case 6:
+                    isTrue = false;
+                    break;
+                default:
+                    InvalidInput();
+                    break;
+            }
+        } while (isTrue);
+    }
+    private static void JobMenu()
+    {
+        Job job = new Job();
+        VJob vjob = new VJob();
+        JobC jobController = new JobC(job, vjob);
+
+        bool isTrue = true;
+        do
+        {
+            int pilihMenu = vjob.Menu();
+            switch (pilihMenu)
+            {
+                case 1:
+                    jobController.Insert();
+                    PressAnyKey();
+                    break;
+                case 2:
+                    jobController.Update();
+                    PressAnyKey();
+                    break;
+                case 3:
+                    jobController.Delete();
+                    break;
+                case 4:
+                    jobController.SearchById();
+                    break;
+                case 5:
+                    jobController.GetAll();
                     PressAnyKey();
                     break;
                 case 6:

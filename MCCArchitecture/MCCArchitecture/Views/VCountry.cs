@@ -113,6 +113,5 @@ namespace MCCArchitecture.Views
             return Console.ReadLine();
         }
 
-        // Other methods in the class
     }
 }

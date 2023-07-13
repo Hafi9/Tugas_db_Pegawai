@@ -147,7 +147,7 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "DELETE FROM histories WHERE employee_id = @employee_id AND start_date = @start_date";
+                sqlCommand.CommandText = "DELETE FROM histories WHERE employee_id = @employee_id";
 
                 sqlCommand.Parameters.AddWithValue("@employee_id", employeeId);
 
