@@ -18,6 +18,7 @@ public class Program
         {
             Console.WriteLine("Pilih menu untuk masuk ke menunya");
             Console.WriteLine("1. Regions");
+            Console.WriteLine("2. Country");
             Console.WriteLine("8. Exit");
             Console.WriteLine("Pilih: ");
 
@@ -29,6 +30,9 @@ public class Program
                 {
                     case 1:
                         RegionMenu();
+                        break;
+                    case 2:
+                        CountryMenu();
                         break;
                     case 8:
                         ulang = false;
@@ -87,7 +91,42 @@ public class Program
 
     private static void CountryMenu()
     {
+        Country country = new Country();
+        VCountry vcountry = new VCountry();
+        CountryC countryController = new CountryC(country, vcountry);
 
+        bool isTrue = true;
+        do
+        {
+            int pilihMenu = vcountry.Menu();
+            switch (pilihMenu)
+            {
+                case 1:
+                    countryController.Insert();
+                    PressAnyKey();
+                    break;
+                case 2:
+                    countryController.Update();
+                    PressAnyKey();
+                    break;
+                case 3:
+                    countryController.Delete();
+                    break;
+                case 4:
+                    countryController.SearchById();
+                    break;
+                case 5:
+                    countryController.GetAll();
+                    PressAnyKey();
+                    break;
+                case 6:
+                    isTrue = false;
+                    break;
+                default:
+                    InvalidInput();
+                    break;
+            }
+        } while (isTrue);
     }
 
     private static void InvalidInput()
