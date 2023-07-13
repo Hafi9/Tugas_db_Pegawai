@@ -251,7 +251,7 @@ public class Program
                     historyController.Delete();
                     break;
                 case 4:
-                    historyController.SearchByEmployeeId();
+                    historyController.SearchById();
                     break;
                 case 5:
                     historyController.GetAll();

@@ -8,16 +8,9 @@ namespace MCCArchitecture.Views
     {
         public void GetAll(List<History> histories)
         {
-            if (histories.Count == 0)
+            foreach (var history in histories)
             {
-                DataEmpty();
-            }
-            else
-            {
-                foreach (var history in histories)
-                {
-                    GetById(history);
-                }
+                GetById(history);
             }
         }
 
@@ -25,20 +18,39 @@ namespace MCCArchitecture.Views
         {
             Console.WriteLine("Start Date: " + history.StartDate);
             Console.WriteLine("Employee ID: " + history.EmployeeId);
-            Console.WriteLine("End Date: " + (history.EndDate.HasValue ? history.EndDate.Value.ToString() : "N/A"));
-            Console.WriteLine("Department ID: " + (history.DepartmentId.HasValue ? history.DepartmentId.Value.ToString() : "N/A"));
+            Console.WriteLine("End Date: " + history.EndDate);
+            Console.WriteLine("Department ID: " + history.DepartmentId);
             Console.WriteLine("Job ID: " + history.JobId);
             Console.WriteLine("==========================");
         }
 
+        public DateTime GetStartDate()
+        {
+            Console.WriteLine("Enter Start Date (YYYY-MM-DD): ");
+            DateTime startDate = Convert.ToDateTime(Console.ReadLine());
+            return startDate;
+        }
+
+        public int GetEmployeeId()
+        {
+            Console.WriteLine("Enter Employee ID: ");
+            int employeeId = Convert.ToInt32(Console.ReadLine());
+            return employeeId;
+        }
+
+        public void HistoryNotFound()
+        {
+            Console.WriteLine("History not found!");
+        }
+
         public void DataEmpty()
         {
-            Console.WriteLine("No histories found.");
+            Console.WriteLine("No history records found.");
         }
 
         public void Success()
         {
-            Console.WriteLine("Success!");
+            Console.WriteLine("Operation completed successfully.");
         }
 
         public void Failure()
@@ -51,43 +63,32 @@ namespace MCCArchitecture.Views
             Console.WriteLine("An error occurred while retrieving data.");
         }
 
-        public void HistoryNotFound()
-        {
-            Console.WriteLine("History not found for the given employee ID.");
-        }
-
         public int Menu()
         {
-            Console.WriteLine("== Menu History ==");
-            Console.WriteLine("1. Tambah");
-            Console.WriteLine("2. Update");
-            Console.WriteLine("3. Hapus");
-            Console.WriteLine("4. Search By Id");
-            Console.WriteLine("5. Get All");
+            Console.WriteLine("== History Menu ==");
+            Console.WriteLine("1. Add History");
+            Console.WriteLine("2. Update History");
+            Console.WriteLine("3. Delete History");
+            Console.WriteLine("4. Search by Start Date and Employee ID");
+            Console.WriteLine("5. Get All Histories");
             Console.WriteLine("6. Main Menu");
-            Console.WriteLine("Pilih: ");
+            Console.WriteLine("Enter your choice: ");
 
             int input = Int32.Parse(Console.ReadLine());
             return input;
         }
 
-        public History InsertMenu()
+        public History AddHistoryMenu()
         {
-            Console.WriteLine("Enter Start Date (YYYY-MM-DD): ");
-            DateTime startDate = Convert.ToDateTime(Console.ReadLine());
-
-            Console.WriteLine("Enter Employee ID: ");
-            int employeeId = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Enter End Date (optional, leave empty if not applicable) (YYYY-MM-DD): ");
-            string endDateInput = Console.ReadLine();
-            DateTime? endDate = string.IsNullOrEmpty(endDateInput) ? null : (DateTime?)Convert.ToDateTime(endDateInput);
-
-            Console.WriteLine("Enter Department ID (optional, leave empty if not applicable): ");
-            string departmentIdInput = Console.ReadLine();
-            int? departmentId = string.IsNullOrEmpty(departmentIdInput) ? null : (int?)Convert.ToInt32(departmentIdInput);
-
-            Console.WriteLine("Enter Job ID: ");
+            Console.Write("Masukkan Start Date (yyyy-mm-dd): ");
+            DateTime startDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Masukkan Employee ID: ");
+            int employeeId = int.Parse(Console.ReadLine());
+            Console.Write("Masukkan End Date (yyyy-mm-dd): ");
+            DateTime endDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Masukkan Department ID: ");
+            int departmentId = int.Parse(Console.ReadLine());
+            Console.Write("Masukkan Job ID: ");
             string jobId = Console.ReadLine();
 
             return new History
@@ -100,23 +101,19 @@ namespace MCCArchitecture.Views
             };
         }
 
-        public History UpdateMenu()
+        public History UpdateHistoryMenu()
         {
-            Console.WriteLine("Enter Employee ID to Update: ");
-            int employeeId = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Enter Start Date to Update (YYYY-MM-DD): ");
-            DateTime startDate = Convert.ToDateTime(Console.ReadLine());
-
-            Console.WriteLine("Enter Updated End Date (optional, leave empty if not applicable) (YYYY-MM-DD): ");
-            string endDateInput = Console.ReadLine();
-            DateTime? endDate = string.IsNullOrEmpty(endDateInput) ? null : (DateTime?)Convert.ToDateTime(endDateInput);
-
-            Console.WriteLine("Enter Updated Department ID (optional, leave empty if not applicable): ");
-            string departmentIdInput = Console.ReadLine();
-            int? departmentId = string.IsNullOrEmpty(departmentIdInput) ? null : (int?)Convert.ToInt32(departmentIdInput);
-
-            Console.WriteLine("Enter Updated Job ID: ");
+            Console.Write("Masukkan Employee ID History yang akan diupdate: ");
+            int employeeId = int.Parse(Console.ReadLine());
+            Console.Write("Masukkan Start Date baru (yyyy-mm-dd): ");
+            DateTime startDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Masukkan Employee ID baru: ");
+            int newEmployeeId = int.Parse(Console.ReadLine());
+            Console.Write("Masukkan End Date baru (yyyy-mm-dd): ");
+            DateTime endDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Masukkan Department ID baru: ");
+            int departmentId = int.Parse(Console.ReadLine());
+            Console.Write("Masukkan Job ID baru: ");
             string jobId = Console.ReadLine();
 
             return new History
@@ -128,12 +125,5 @@ namespace MCCArchitecture.Views
                 JobId = jobId
             };
         }
-
-        public int GetEmployeeId()
-        {
-            Console.WriteLine("Enter Employee ID: ");
-            return Convert.ToInt32(Console.ReadLine());
-        }
-
     }
 }

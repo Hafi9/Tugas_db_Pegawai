@@ -1,6 +1,7 @@
-﻿using MCCArchitecture.Models;
+﻿using System;
+using System.Collections.Generic;
+using MCCArchitecture.Models;
 using MCCArchitecture.Views;
-using System;
 
 namespace MCCArchitecture.Controllers
 {
@@ -30,7 +31,7 @@ namespace MCCArchitecture.Controllers
 
         public void Insert()
         {
-            var history = _historyView.InsertMenu();
+            var history = _historyView.AddHistoryMenu();
 
             var result = _historyModel.Insert(history);
             switch (result)
@@ -49,7 +50,7 @@ namespace MCCArchitecture.Controllers
 
         public void Update()
         {
-            var history = _historyView.UpdateMenu();
+            var history = _historyView.UpdateHistoryMenu();
             var result = _historyModel.Update(history);
 
             switch (result)
@@ -66,10 +67,12 @@ namespace MCCArchitecture.Controllers
             }
         }
 
-        public void SearchByEmployeeId()
+        public void SearchById()
         {
+            DateTime startDate = _historyView.GetStartDate();
             int employeeId = _historyView.GetEmployeeId();
-            var result = _historyModel.GetByEmployeeId(employeeId);
+
+            var result = _historyModel.GetById(startDate, employeeId);
             if (result == null)
             {
                 _historyView.HistoryNotFound();
@@ -82,8 +85,10 @@ namespace MCCArchitecture.Controllers
 
         public void Delete()
         {
+            DateTime startDate = _historyView.GetStartDate();
             int employeeId = _historyView.GetEmployeeId();
-            var result = _historyModel.Delete(employeeId);
+
+            var result = _historyModel.Delete(startDate, employeeId);
             switch (result)
             {
                 case -1:

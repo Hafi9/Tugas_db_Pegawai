@@ -7,7 +7,7 @@ namespace MCCArchitecture.Models
     public class Country
     {
         public string CountryId { get; set; }
-        public string CountryName { get; set; }
+        public string Name { get; set; }
         public int RegionId { get; set; }
 
         public List<Country> GetAll()
@@ -18,7 +18,7 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "SELECT * FROM countries";
+                sqlCommand.CommandText = "SELECT * FROM Countries";
 
                 try
                 {
@@ -31,7 +31,7 @@ namespace MCCArchitecture.Models
                             {
                                 Country country = new Country();
                                 country.CountryId = reader.GetString(0);
-                                country.CountryName = reader.GetString(1);
+                                country.Name = reader.GetString(1);
                                 country.RegionId = reader.GetInt32(2);
 
                                 countries.Add(country);
@@ -48,7 +48,7 @@ namespace MCCArchitecture.Models
             return countries;
         }
 
-        public Country GetById(string id)
+        public Country GetById(string countryId)
         {
             var country = new Country();
 
@@ -56,8 +56,8 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "SELECT * FROM countries WHERE country_id = @country_id";
-                sqlCommand.Parameters.AddWithValue("@country_id", id);
+                sqlCommand.CommandText = "SELECT * FROM Countries WHERE country_id = @country_id";
+                sqlCommand.Parameters.AddWithValue("@country_id", countryId);
 
                 try
                 {
@@ -69,14 +69,14 @@ namespace MCCArchitecture.Models
                             reader.Read();
 
                             country.CountryId = reader.GetString(0);
-                            country.CountryName = reader.GetString(1);
+                            country.Name = reader.GetString(1);
                             country.RegionId = reader.GetInt32(2);
                         }
                     }
                 }
                 catch
                 {
-                    return null;
+                    return new Country();
                 }
             }
 
@@ -89,10 +89,10 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "INSERT INTO countries (country_id, name, region_id) VALUES (@country_id, @country_name, @region_id)";
+                sqlCommand.CommandText = "INSERT INTO Countries VALUES (@country_id, @name, @region_id)";
 
                 sqlCommand.Parameters.AddWithValue("@country_id", country.CountryId);
-                sqlCommand.Parameters.AddWithValue("@country_name", country.CountryName);
+                sqlCommand.Parameters.AddWithValue("@name", country.Name);
                 sqlCommand.Parameters.AddWithValue("@region_id", country.RegionId);
 
                 try
@@ -113,9 +113,9 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "UPDATE countries SET name = @country_name, region_id = @region_id WHERE country_id = @country_id";
+                sqlCommand.CommandText = "UPDATE Countries SET name = @name, region_id = @region_id WHERE country_id = @country_id";
 
-                sqlCommand.Parameters.AddWithValue("@country_name", country.CountryName);
+                sqlCommand.Parameters.AddWithValue("@name", country.Name);
                 sqlCommand.Parameters.AddWithValue("@region_id", country.RegionId);
                 sqlCommand.Parameters.AddWithValue("@country_id", country.CountryId);
 
@@ -131,15 +131,15 @@ namespace MCCArchitecture.Models
             }
         }
 
-        public int Delete(string id)
+        public int Delete(string countryId)
         {
             using (SqlConnection connection = Connection.Get())
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "DELETE FROM countries WHERE country_id = @country_id";
+                sqlCommand.CommandText = "DELETE FROM Countries WHERE country_id = @country_id";
 
-                sqlCommand.Parameters.AddWithValue("@country_id", id);
+                sqlCommand.Parameters.AddWithValue("@country_id", countryId);
 
                 try
                 {

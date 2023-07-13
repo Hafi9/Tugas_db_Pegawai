@@ -30,7 +30,7 @@ namespace MCCArchitecture.Controllers
 
         public void Insert()
         {
-            var country = _countryView.InsertMenu();
+            var country = _countryView.AddCountryMenu();
 
             var result = _countryModel.Insert(country);
             switch (result)
@@ -49,7 +49,7 @@ namespace MCCArchitecture.Controllers
 
         public void Update()
         {
-            var country = _countryView.UpdateMenu();
+            var country = _countryView.UpdateCountryMenu();
             var result = _countryModel.Update(country);
 
             switch (result)

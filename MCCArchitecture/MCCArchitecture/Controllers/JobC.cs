@@ -50,17 +50,9 @@ namespace MCCArchitecture.Controllers
 
         public void Update()
         {
-            var jobId = _jobView.GetJobId();
-            var job = _jobModel.GetById(jobId);
-            if (job == null)
-            {
-                _jobView.JobNotFound();
-                return;
-            }
+            var job = _jobView.UpdateMenu();
+            var result = _jobModel.Update(job);
 
-            var updatedJob = _jobView.UpdateMenu(job);
-
-            var result = _jobModel.Update(updatedJob);
             switch (result)
             {
                 case -1:
@@ -75,16 +67,23 @@ namespace MCCArchitecture.Controllers
             }
         }
 
-        public void Delete()
+        public void SearchById()
         {
-            var jobId = _jobView.GetJobId();
-            var job = _jobModel.GetById(jobId);
-            if (job == null)
+            string jobId = _jobView.GetJobId();
+            var result = _jobModel.GetById(jobId);
+            if (result == null)
             {
                 _jobView.JobNotFound();
-                return;
             }
+            else
+            {
+                _jobView.GetById(result);
+            }
+        }
 
+        public void Delete()
+        {
+            string jobId = _jobView.GetJobId();
             var result = _jobModel.Delete(jobId);
             switch (result)
             {
@@ -97,19 +96,6 @@ namespace MCCArchitecture.Controllers
                 default:
                     _jobView.Success();
                     break;
-            }
-        }
-        public void SearchById()
-        {
-            var jobId = _jobView.GetJobId();
-            var job = _jobModel.GetById(jobId);
-            if (job == null)
-            {
-                _jobView.JobNotFound();
-            }
-            else
-            {
-                _jobView.GetById(job);
             }
         }
     }

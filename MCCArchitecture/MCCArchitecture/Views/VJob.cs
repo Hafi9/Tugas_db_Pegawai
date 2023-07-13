@@ -42,7 +42,7 @@ namespace MCCArchitecture.Views
 
         public void Failure()
         {
-            Console.WriteLine("Operation failed. Job not found.");
+            Console.WriteLine("Operation failed. Job ID not found.");
         }
 
         public void Error()
@@ -58,13 +58,13 @@ namespace MCCArchitecture.Views
         public int Menu()
         {
             Console.WriteLine("== Menu Job ==");
-            Console.WriteLine("1. Tambah");
-            Console.WriteLine("2. Update");
-            Console.WriteLine("3. Hapus");
-            Console.WriteLine("4. Search By Id");
-            Console.WriteLine("5. Get All");
+            Console.WriteLine("1. Add Job");
+            Console.WriteLine("2. Update Job");
+            Console.WriteLine("3. Delete Job");
+            Console.WriteLine("4. Search By ID");
+            Console.WriteLine("5. Get All Jobs");
             Console.WriteLine("6. Main Menu");
-            Console.WriteLine("Pilih: ");
+            Console.WriteLine("Select an option: ");
 
             int input = Int32.Parse(Console.ReadLine());
             return input;
@@ -75,13 +75,36 @@ namespace MCCArchitecture.Views
             Console.WriteLine("Enter Job ID: ");
             string jobId = Console.ReadLine();
 
-            Console.WriteLine("Enter Title: ");
+            Console.WriteLine("Enter Job Title: ");
             string title = Console.ReadLine();
 
-            Console.WriteLine("Enter Min Salary: ");
+            Console.WriteLine("Enter Minimum Salary: ");
             int minSalary = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter Max Salary: ");
+            Console.WriteLine("Enter Maximum Salary: ");
+            int maxSalary = Convert.ToInt32(Console.ReadLine());
+
+            return new Job
+            {
+                JobId = jobId,
+                Title = title,
+                MinSalary = minSalary,
+                MaxSalary = maxSalary
+            };
+        }
+
+        public Job UpdateMenu()
+        {
+            Console.WriteLine("Enter Job ID to Update: ");
+            string jobId = Console.ReadLine();
+
+            Console.WriteLine("Enter Updated Job Title: ");
+            string title = Console.ReadLine();
+
+            Console.WriteLine("Enter Updated Minimum Salary: ");
+            int minSalary = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Updated Maximum Salary: ");
             int maxSalary = Convert.ToInt32(Console.ReadLine());
 
             return new Job
@@ -98,49 +121,5 @@ namespace MCCArchitecture.Views
             Console.WriteLine("Enter Job ID: ");
             return Console.ReadLine();
         }
-
-        public Job UpdateMenu(Job job)
-        {
-            Console.WriteLine("Job ID: " + job.JobId);
-            Console.WriteLine("Enter Updated Title (leave empty to keep the existing title): ");
-            string title = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                title = job.Title;
-            }
-
-            Console.WriteLine("Enter Updated Min Salary (leave empty to keep the existing min salary): ");
-            string minSalaryInput = Console.ReadLine();
-            int minSalary;
-            if (string.IsNullOrWhiteSpace(minSalaryInput))
-            {
-                minSalary = job.MinSalary;
-            }
-            else
-            {
-                minSalary = Convert.ToInt32(minSalaryInput);
-            }
-
-            Console.WriteLine("Enter Updated Max Salary (leave empty to keep the existing max salary): ");
-            string maxSalaryInput = Console.ReadLine();
-            int maxSalary;
-            if (string.IsNullOrWhiteSpace(maxSalaryInput))
-            {
-                maxSalary = job.MaxSalary;
-            }
-            else
-            {
-                maxSalary = Convert.ToInt32(maxSalaryInput);
-            }
-
-            return new Job
-            {
-                JobId = job.JobId,
-                Title = title,
-                MinSalary = minSalary,
-                MaxSalary = maxSalary
-            };
-        }
-
     }
 }

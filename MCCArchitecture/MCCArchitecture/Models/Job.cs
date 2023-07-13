@@ -18,7 +18,7 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "SELECT * FROM jobs";
+                sqlCommand.CommandText = "SELECT * FROM Jobs";
 
                 try
                 {
@@ -57,7 +57,7 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "SELECT * FROM jobs WHERE job_id = @jobId";
+                sqlCommand.CommandText = "SELECT * FROM Jobs WHERE job_id = @jobId";
                 sqlCommand.Parameters.AddWithValue("@jobId", jobId);
 
                 try
@@ -92,7 +92,7 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "INSERT INTO jobs (job_id, title, min_salary, max_salary) VALUES (@jobId, @title, @minSalary, @maxSalary)";
+                sqlCommand.CommandText = "INSERT INTO Jobs (job_id, title, min_salary, max_salary) VALUES (@jobId, @title, @minSalary, @maxSalary)";
 
                 sqlCommand.Parameters.AddWithValue("@jobId", job.JobId);
                 sqlCommand.Parameters.AddWithValue("@title", job.Title);
@@ -117,7 +117,7 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "UPDATE jobs SET title = @title, min_salary = @minSalary, max_salary = @maxSalary WHERE job_id = @jobId";
+                sqlCommand.CommandText = "UPDATE Jobs SET title = @title, min_salary = @minSalary, max_salary = @maxSalary WHERE job_id = @jobId";
 
                 sqlCommand.Parameters.AddWithValue("@title", job.Title);
                 sqlCommand.Parameters.AddWithValue("@minSalary", job.MinSalary);
@@ -142,7 +142,7 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "DELETE FROM jobs WHERE job_id = @jobId";
+                sqlCommand.CommandText = "DELETE FROM Jobs WHERE job_id = @jobId";
 
                 sqlCommand.Parameters.AddWithValue("@jobId", jobId);
 

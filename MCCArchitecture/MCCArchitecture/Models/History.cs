@@ -52,7 +52,7 @@ namespace MCCArchitecture.Models
             return histories;
         }
 
-        public History GetByEmployeeId(int employeeId)
+        public History GetById(DateTime startDate, int employeeId)
         {
             var history = new History();
 
@@ -60,7 +60,8 @@ namespace MCCArchitecture.Models
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "SELECT * FROM histories WHERE employee_id = @employee_id";
+                sqlCommand.CommandText = "SELECT * FROM histories WHERE start_date = @start_date AND employee_id = @employee_id";
+                sqlCommand.Parameters.AddWithValue("@start_date", startDate);
                 sqlCommand.Parameters.AddWithValue("@employee_id", employeeId);
 
                 try
@@ -99,8 +100,8 @@ namespace MCCArchitecture.Models
 
                 sqlCommand.Parameters.AddWithValue("@start_date", history.StartDate);
                 sqlCommand.Parameters.AddWithValue("@employee_id", history.EmployeeId);
-                sqlCommand.Parameters.AddWithValue("@end_date", history.EndDate ?? (object)DBNull.Value);
-                sqlCommand.Parameters.AddWithValue("@department_id", history.DepartmentId ?? (object)DBNull.Value);
+                sqlCommand.Parameters.AddWithValue("@end_date", history.EndDate);
+                sqlCommand.Parameters.AddWithValue("@department_id", history.DepartmentId);
                 sqlCommand.Parameters.AddWithValue("@job_id", history.JobId);
 
                 try
@@ -141,14 +142,15 @@ namespace MCCArchitecture.Models
             }
         }
 
-        public int Delete(int employeeId)
+        public int Delete(DateTime startDate, int employeeId)
         {
             using (SqlConnection connection = Connection.Get())
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "DELETE FROM histories WHERE employee_id = @employee_id";
+                sqlCommand.CommandText = "DELETE FROM histories WHERE start_date = @start_date AND employee_id = @employee_id";
 
+                sqlCommand.Parameters.AddWithValue("@start_date", startDate);
                 sqlCommand.Parameters.AddWithValue("@employee_id", employeeId);
 
                 try
@@ -164,4 +166,3 @@ namespace MCCArchitecture.Models
         }
     }
 }
-
