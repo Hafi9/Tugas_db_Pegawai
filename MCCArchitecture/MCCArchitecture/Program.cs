@@ -20,6 +20,7 @@ public class Program
             Console.WriteLine("1. Regions");
             Console.WriteLine("2. Country");
             Console.WriteLine("3. Location");
+            Console.WriteLine("4. Department");
             Console.WriteLine("8. Exit");
             Console.WriteLine("Pilih: ");
 
@@ -37,6 +38,9 @@ public class Program
                         break;
                     case 3:
                         LocationMenu();
+                        break;
+                    case 4:
+                        DepartmentMenu();
                         break;
                     case 8:
                         ulang = false;
@@ -161,6 +165,45 @@ public class Program
                     break;
                 case 5:
                     locationController.GetAll();
+                    PressAnyKey();
+                    break;
+                case 6:
+                    isTrue = false;
+                    break;
+                default:
+                    InvalidInput();
+                    break;
+            }
+        } while (isTrue);
+    }
+    private static void DepartmentMenu()
+    {
+        Department department = new Department();
+        VDepartment vdepartment = new VDepartment();
+        DepartmentC departmentController = new DepartmentC(department, vdepartment);
+
+        bool isTrue = true;
+        do
+        {
+            int pilihMenu = vdepartment.Menu();
+            switch (pilihMenu)
+            {
+                case 1:
+                    departmentController.Insert();
+                    PressAnyKey();
+                    break;
+                case 2:
+                    departmentController.Update();
+                    PressAnyKey();
+                    break;
+                case 3:
+                    departmentController.Delete();
+                    break;
+                case 4:
+                    departmentController.SearchById();
+                    break;
+                case 5:
+                    departmentController.GetAll();
                     PressAnyKey();
                     break;
                 case 6:
