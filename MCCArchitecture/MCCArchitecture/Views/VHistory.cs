@@ -69,7 +69,7 @@ namespace MCCArchitecture.Views
             Console.WriteLine("1. Add History");
             Console.WriteLine("2. Update History");
             Console.WriteLine("3. Delete History");
-            Console.WriteLine("4. Search by Start Date and Employee ID");
+            Console.WriteLine("4. Search by Employee ID");
             Console.WriteLine("5. Get All Histories");
             Console.WriteLine("6. Main Menu");
             Console.WriteLine("Enter your choice: ");
