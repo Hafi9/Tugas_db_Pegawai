@@ -3,6 +3,8 @@ using System.Data.SqlClient;
 
 namespace MCCArchitecture;
 
+
+
 public class Connection
 {
     private static string _connectionString =

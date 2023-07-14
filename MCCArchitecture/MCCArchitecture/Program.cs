@@ -24,7 +24,8 @@ public class Program
             Console.WriteLine("5. History");
             Console.WriteLine("6. Job");
             Console.WriteLine("7. Employee");
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("8. Linq");
+            Console.WriteLine("9. Exit");
             Console.WriteLine("Pilih: ");
 
             try
@@ -55,6 +56,9 @@ public class Program
                         EmployeeMenu();
                         break;
                     case 8:
+                        LinqMenu();
+                        break;
+                    case 9:
                         ulang = false;
                         break;
                     default:
@@ -148,6 +152,71 @@ public class Program
             }
         } while (isTrue);
     }
+    private static void LinqMenu()
+    {
+        bool isTrue = true;
+        do
+        {
+            Console.WriteLine("Pilih menu Linq:");
+            Console.WriteLine("1. Tampilkan Join Data");
+            Console.WriteLine("2. Kembali ke Menu Utama");
+            Console.WriteLine("Pilih: ");
+
+            try
+            {
+                int pilihMenu = Int32.Parse(Console.ReadLine());
+
+                switch (pilihMenu)
+                {
+                    case 1:
+                        ShowJoinData();
+                        PressAnyKey();
+                        break;
+                    case 2:
+                        isTrue = false;
+                        break;
+                    default:
+                        InvalidInput();
+                        break;
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Input Hanya diantara 1-2!");
+            }
+        } while (isTrue);
+    }
+
+
+    private static void ShowJoinData()
+    {
+        EmployeeJoin employeeJoin = new EmployeeJoin();
+        var joinData = employeeJoin.GetAll();
+
+        if (joinData.Any())
+        {
+            Console.WriteLine("Data Join:");
+            foreach (var data in joinData)
+            {
+                Console.WriteLine($"Employee ID: {data.EmployeeId}");
+                Console.WriteLine($"Nama Lengkap: {data.FullName}");
+                Console.WriteLine($"Email: {data.Email}");
+                Console.WriteLine($"Nomor Telepon: {data.PhoneNumber}");
+                Console.WriteLine($"Gaji: {data.Salary}");
+                Console.WriteLine($"Nama Departemen: {data.DepartmentName}");
+                Console.WriteLine($"Alamat: {data.StreetAddress}");
+                Console.WriteLine($"Nama Negara: {data.CountryName}");
+                Console.WriteLine($"Nama Region: {data.RegionName}");
+                Console.WriteLine();
+            }
+        }
+        else
+        {
+            Console.WriteLine("Data Join tidak tersedia.");
+        }
+    }
+
+
 
     private static void LocationMenu()
     {
